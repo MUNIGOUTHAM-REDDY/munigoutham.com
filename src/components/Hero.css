@@ -51,14 +51,14 @@
 }
 
 .hero__glow--1 {
-  left: 43.5%;
+  left: 33.5%;
   top: 41.7%;
   width: 150px;
   height: 150px;
 }
 
 .hero__glow--2 {
-  left: 52%;
+  left: 40%;
   top: 43.4%;
   width: 120px;
   height: 120px;
@@ -148,7 +148,7 @@
 .hero__content {
   position: absolute;
   left: 24px;
-  bottom: 22%;
+  bottom: 18%;
   z-index: 5;
 }
 
@@ -182,6 +182,15 @@
   flex-shrink: 0;
 }
 
+/* ===== Meteors ===== */
+.hero__meteors {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
 /* ===== Bottom Nav ===== */
 .hero__bottomnav {
   position: absolute;
@@ -191,6 +200,10 @@
   z-index: 10;
 }
 
+.hero__bottomnav-starborder {
+  border-radius: 24px;
+}
+
 .hero__bottomnav-inner {
   display: flex;
   align-items: center;
@@ -198,7 +211,6 @@
   padding: 12px 17px;
   background: #040307;
   border-radius: 24px;
-  box-shadow: 0 2.4px 36px 2.4px rgba(255, 255, 255, 0.04);
 }
 
 .hero__bottomnav-item {

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import heroBg from '../assets/hero-bg.png'
 import heroBgMobile from '../assets/hero-bg-mobile.png'
 import iconHome from '../assets/icon-home.svg'
@@ -8,6 +9,8 @@ import iconGame from '../assets/icon-game.svg'
 import starHeader from '../assets/star-header.svg'
 import glow1 from '../assets/glow1.svg'
 import glow2 from '../assets/glow2.svg'
+import { Meteors } from '@/components/ui/meteors'
+import StarBorder from './StarBorder'
 import './Hero.css'
 
 function StarIcon({ className }: { className?: string }) {
@@ -26,14 +29,17 @@ function StarIcon({ className }: { className?: string }) {
   )
 }
 
-function FallingStars() {
-  return (
-    <div className="falling-stars" aria-hidden="true">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className={`falling-star falling-star--${i}`} />
-      ))}
-    </div>
+function IndiaTime() {
+  const [time, setTime] = useState(() =>
+    new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false })
   )
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTime(new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false }))
+    }, 1000)
+    return () => clearInterval(id)
+  }, [])
+  return <span>{time}</span>
 }
 
 export default function Hero() {
@@ -59,8 +65,10 @@ export default function Hero() {
       <img className="hero__glow hero__glow--1" src={glow1} alt="" aria-hidden="true" />
       <img className="hero__glow hero__glow--2" src={glow2} alt="" aria-hidden="true" />
 
-      {/* Falling stars animation — behind text */}
-      <FallingStars />
+      {/* Meteors */}
+      <div className="hero__meteors">
+        <Meteors number={10} />
+      </div>
 
       {/* Top bar: INDIA ✦ 14:34 (mobile + tablet) */}
       <div className="hero__topbar">
@@ -68,7 +76,7 @@ export default function Hero() {
         <div className="hero__topbar-inner">
           <span>INDIA</span>
           <img className="hero__topbar-star" src={starHeader} alt="" />
-          <span>14:34</span>
+          <IndiaTime />
         </div>
       </div>
 
@@ -84,25 +92,32 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Bottom nav (mobile + tablet) */}
+      {/* Bottom nav with StarBorder (mobile + tablet) */}
       <div className="hero__bottomnav">
-        <div className="hero__bottomnav-inner">
-          <div className="hero__bottomnav-item hero__bottomnav-item--active">
-            <img src={iconHome} alt="Home" />
+        <StarBorder
+          as="div"
+          className="hero__bottomnav-starborder"
+          color="#87C23B"
+          speed="5s"
+        >
+          <div className="hero__bottomnav-inner">
+            <div className="hero__bottomnav-item hero__bottomnav-item--active">
+              <img src={iconHome} alt="Home" />
+            </div>
+            <div className="hero__bottomnav-item">
+              <img src={iconGallery} alt="Gallery" />
+            </div>
+            <div className="hero__bottomnav-item">
+              <img src={iconDesign} alt="Design" />
+            </div>
+            <div className="hero__bottomnav-item">
+              <img src={iconProfile} alt="Profile" />
+            </div>
+            <div className="hero__bottomnav-item">
+              <img src={iconGame} alt="Game" />
+            </div>
           </div>
-          <div className="hero__bottomnav-item">
-            <img src={iconGallery} alt="Gallery" />
-          </div>
-          <div className="hero__bottomnav-item">
-            <img src={iconDesign} alt="Design" />
-          </div>
-          <div className="hero__bottomnav-item">
-            <img src={iconProfile} alt="Profile" />
-          </div>
-          <div className="hero__bottomnav-item">
-            <img src={iconGame} alt="Game" />
-          </div>
-        </div>
+        </StarBorder>
       </div>
     </section>
   )
