@@ -44,7 +44,7 @@ function IndiaTime() {
 
 export default function Hero() {
   return (
-    <section className="hero">
+    <section id="hero" className="hero">
       <div className="hero__background">
         <img
           className="hero__bg-img hero__bg-img--mobile"
@@ -80,6 +80,18 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* Desktop nav */}
+      <nav className="hero__desknav">
+        <div className="hero__desknav-blur" />
+        <div className="hero__desknav-inner">
+          <a href="#hero" className="hero__desknav-link">Home</a>
+          <a href="#about" className="hero__desknav-link">About</a>
+          <a href="#projects" className="hero__desknav-link">Projects</a>
+          <a href="#playground" className="hero__desknav-link">Playground</a>
+          <a href="#contact" className="hero__desknav-link">Contact</a>
+        </div>
+      </nav>
+
       <div className="hero__content">
         <h1 className="hero__name">
           <span>MUNI</span>
@@ -91,6 +103,9 @@ export default function Hero() {
           <span>Product Designer</span>
         </div>
       </div>
+
+      {/* Bottom gradient fade */}
+      <div className="hero__bottom-fade" />
 
       {/* Bottom nav with StarBorder (mobile + tablet) */}
       <div className="hero__bottomnav">
