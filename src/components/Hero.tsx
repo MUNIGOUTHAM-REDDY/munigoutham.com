@@ -116,21 +116,21 @@ export default function Hero() {
           speed="5s"
         >
           <div className="hero__bottomnav-inner">
-            <div className="hero__bottomnav-item hero__bottomnav-item--active">
+            <button className="hero__bottomnav-item hero__bottomnav-item--active" onClick={() => document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })}>
               <img src={iconHome} alt="Home" />
-            </div>
-            <div className="hero__bottomnav-item">
-              <img src={iconGallery} alt="Gallery" />
-            </div>
-            <div className="hero__bottomnav-item">
-              <img src={iconDesign} alt="Design" />
-            </div>
-            <div className="hero__bottomnav-item">
-              <img src={iconProfile} alt="Profile" />
-            </div>
-            <div className="hero__bottomnav-item">
-              <img src={iconGame} alt="Game" />
-            </div>
+            </button>
+            <button className="hero__bottomnav-item" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>
+              <img src={iconDesign} alt="Projects" />
+            </button>
+            <button className="hero__bottomnav-item" onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}>
+              <img src={iconProfile} alt="About" />
+            </button>
+            <button className="hero__bottomnav-item" onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })}>
+              <img src={iconGallery} alt="Experience" />
+            </button>
+            <button className="hero__bottomnav-item" onClick={() => document.getElementById('playground')?.scrollIntoView({ behavior: 'smooth' })}>
+              <img src={iconGame} alt="Playground" />
+            </button>
           </div>
         </StarBorder>
       </div>

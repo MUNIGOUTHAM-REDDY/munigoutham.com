@@ -2,18 +2,44 @@ import { motion } from 'motion/react'
 import { profile } from '../../data/portfolio'
 import SectionHeader from './SectionHeader'
 
-const categoryLabels: Record<string, string> = {
-  design: 'Design',
-  development: 'Development',
-  tools: 'Tools',
+const tools = [
+  { name: 'Figma', slug: 'figma' },
+  { name: 'Claude Code', slug: 'claude' },
+  { name: 'Notion', slug: 'notion' },
+  { name: 'Mixpanel', slug: 'mixpanel' },
+  { name: 'PostHog', slug: 'posthog' },
+  { name: 'Supabase', slug: 'supabase' },
+]
+
+function ToolMarquee() {
+  const doubled = [...tools, ...tools]
+  return (
+    <div className="relative overflow-hidden mt-12">
+      <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#06040d] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#06040d] to-transparent z-10 pointer-events-none" />
+      <div className="flex animate-marquee w-max">
+        {doubled.map((tool, i) => (
+          <div key={i} className="flex flex-col items-center gap-3 px-8 md:px-10 shrink-0">
+            <img
+              src={`https://cdn.simpleicons.org/${tool.slug}/ffffff`}
+              alt={tool.name}
+              className="w-7 h-7 md:w-8 md:h-8 opacity-40"
+              loading="lazy"
+            />
+            <span className="text-white/30 text-[10px] md:text-xs font-['Montserrat',sans-serif] whitespace-nowrap">
+              {tool.name}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 export default function About() {
-  const categories = ['design', 'development', 'tools'] as const
-
   return (
     <section id="about" className="px-6 md:px-12 py-20 md:py-28 max-w-6xl mx-auto">
-      <SectionHeader title="About" subtitle="A little bit about me" />
+      <SectionHeader title="About Me" />
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-10 lg:gap-16">
         {/* Photo placeholder */}
@@ -43,38 +69,15 @@ export default function About() {
           {profile.bio.map((paragraph, i) => (
             <p
               key={i}
-              className="text-white/50 leading-relaxed mb-4 last:mb-8"
+              className="text-white/50 leading-relaxed mb-4 last:mb-0"
             >
               {paragraph}
             </p>
           ))}
-
-          {/* Skills */}
-          <div className="space-y-5">
-            {categories.map((cat) => {
-              const skills = profile.skills.filter((s) => s.category === cat)
-              if (skills.length === 0) return null
-              return (
-                <div key={cat}>
-                  <p className="text-accent text-xs font-['Montserrat',sans-serif] font-bold uppercase tracking-widest mb-2">
-                    {categoryLabels[cat]}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {skills.map((skill) => (
-                      <span
-                        key={skill.name}
-                        className="bg-white/5 text-white/60 rounded-full px-3 py-1 text-xs font-['Montserrat',sans-serif]"
-                      >
-                        {skill.name}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )
-            })}
-          </div>
         </motion.div>
       </div>
+
+      <ToolMarquee />
     </section>
   )
 }

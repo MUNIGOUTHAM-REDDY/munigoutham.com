@@ -9,34 +9,32 @@ export interface Project {
   title: string
   description: string
   tags: string[]
+  slug?: string
   featured?: boolean
 }
 
 export const projects: Project[] = [
   {
     id: "1",
-    title: "E-Commerce Redesign",
-    description: "Complete redesign of an e-commerce platform focusing on conversion optimization and user experience improvements.",
-    tags: ["UI/UX", "Figma", "User Research"],
+    title: "Mindsnack",
+    description: "Designed the entire iOS learning app as solo designer — onboarding, lessons, App Store presence. 31.9% conversion rate, 10% fewer cancellations.",
+    tags: ["Product Design", "iOS", "Solo Designer"],
+    slug: "/case-study/mindsnack",
     featured: true,
   },
   {
     id: "2",
-    title: "Finance Dashboard",
-    description: "A comprehensive financial analytics dashboard with real-time data visualization and portfolio tracking.",
-    tags: ["Product Design", "Data Viz", "React"],
+    title: "Trial Cancellation Fix",
+    description: "One screen cut trial cancellations by 10%. Users weren't unhappy — they were scared of surprise charges. I removed the fear.",
+    tags: ["UX Research", "Conversion", "Behavioral Design"],
+    slug: "/case-study/trial-cancellation-fix",
   },
   {
     id: "3",
-    title: "Health & Wellness App",
-    description: "Mobile-first health tracking application with personalized workout plans and nutrition logging.",
-    tags: ["Mobile", "iOS", "Figma"],
-  },
-  {
-    id: "4",
-    title: "SaaS Landing Page",
-    description: "High-converting landing page design for a B2B SaaS product with interactive demos and social proof.",
-    tags: ["Web Design", "Framer", "Copywriting"],
+    title: "Cards to Articles Pivot",
+    description: "Killed the card-based lesson format and rebuilt it as articles. Stopped competing with TikTok, started competing on depth.",
+    tags: ["Strategy", "Content Design", "Format Design"],
+    slug: "/case-study/cards-to-articles",
   },
 ]
 
@@ -53,77 +51,90 @@ export interface Profile {
 }
 
 export const profile: Profile = {
-  headline: "Crafting digital experiences that matter",
+  headline: "Making complex products feel simple",
   bio: [
-    "I'm a UI/UX and Product Designer based in India with a passion for creating intuitive, user-centered digital experiences. I believe great design lives at the intersection of aesthetics and functionality.",
-    "With experience across web and mobile platforms, I focus on solving real problems through thoughtful design systems, clean interfaces, and seamless interactions.",
+    "Product Designer who works end-to-end across SaaS, fintech, and consumer apps.",
+    "I simplify complex workflows, build design systems, and use analytics to inform decisions.",
+    "Comfortable in fast-paced startups with high ownership.",
   ],
   skills: [
     { name: "UI Design", category: "design" },
     { name: "UX Research", category: "design" },
     { name: "Interaction Design", category: "design" },
     { name: "Design Systems", category: "design" },
-    { name: "Wireframing", category: "design" },
+    { name: "Wireframing & Prototyping", category: "design" },
+    { name: "Usability Testing", category: "design" },
+    { name: "Information Architecture", category: "design" },
     { name: "React", category: "development" },
     { name: "TypeScript", category: "development" },
     { name: "Tailwind CSS", category: "development" },
     { name: "HTML/CSS", category: "development" },
     { name: "Figma", category: "tools" },
-    { name: "Framer", category: "tools" },
-    { name: "Adobe Suite", category: "tools" },
+    { name: "Claude", category: "tools" },
     { name: "Notion", category: "tools" },
+    { name: "Mixpanel", category: "tools" },
+    { name: "PostHog", category: "tools" },
+    { name: "Supabase", category: "tools" },
   ],
 }
 
 // --- Work Experience ---
+export interface AppLink {
+  name: string
+  icon: string
+  url: string
+}
+
 export interface Experience {
   id: string
   role: string
   company: string
+  companyUrl?: string
   startDate: string
   endDate: string | null
   description: string[]
-  tags?: string[]
+  apps?: AppLink[]
 }
 
 export const experiences: Experience[] = [
   {
     id: "1",
-    role: "Senior Product Designer",
-    company: "Company Name",
-    startDate: "Jan 2024",
+    role: "Founding Designer",
+    company: "Scaleswift Digital Services LLP",
+    companyUrl: "https://www.linkedin.com/company/scaleswift/posts/?feedView=all",
+    startDate: "Sep 2025",
     endDate: null,
-    description: [
-      "Led the redesign of the core product experience, improving user retention by 25%.",
-      "Established and maintained a comprehensive design system used across 5 product teams.",
-      "Conducted user research sessions and translated insights into actionable design improvements.",
+    description: [],
+    apps: [
+      {
+        name: "Mindsnack",
+        icon: "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/30/a4/4b/30a44bf1-ee98-2453-7e87-5e8a59806310/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/120x120bb.jpg",
+        url: "https://apps.apple.com/us/app/mindsnack-self-improvement/id6752513248",
+      },
+      {
+        name: "Kael",
+        icon: "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/83/92/d7/8392d706-8a2c-4a21-47c0-f9cab879204f/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/120x120bb.jpg",
+        url: "https://apps.apple.com/us/app/kael-ai-life-coach/id6761193620",
+      },
     ],
-    tags: ["Figma", "Design Systems", "User Research"],
   },
   {
     id: "2",
-    role: "UI/UX Designer",
-    company: "Previous Company",
-    startDate: "Mar 2022",
-    endDate: "Dec 2023",
-    description: [
-      "Designed end-to-end user flows for mobile and web applications serving 100K+ users.",
-      "Collaborated with engineering teams to implement pixel-perfect designs with smooth animations.",
-      "Created interactive prototypes for stakeholder presentations and usability testing.",
-    ],
-    tags: ["Mobile Design", "Prototyping", "Figma"],
+    role: "UI/UX Design Intern",
+    company: "Digital Nexus AI",
+    companyUrl: "https://digitalnexusai.com/",
+    startDate: "Jun 2025",
+    endDate: "Sep 2025",
+    description: ["Designed ZSP, a stock market strategy builder and backtester for the Indian market."],
   },
   {
     id: "3",
-    role: "Junior Designer",
-    company: "Startup Studio",
-    startDate: "Jun 2021",
-    endDate: "Feb 2022",
-    description: [
-      "Designed landing pages and marketing materials for early-stage startups.",
-      "Assisted in building brand identities including logos, color systems, and typography.",
-    ],
-    tags: ["Branding", "Web Design", "Illustrator"],
+    role: "UI/UX Design Intern",
+    company: "Zummit InfoLabs",
+    companyUrl: "https://zummitlabs.com/",
+    startDate: "Oct 2024",
+    endDate: "Feb 2025",
+    description: ["Designed Paw Print Network, a pet platform across web and mobile from scratch."],
   },
 ]
 
@@ -184,28 +195,28 @@ export interface FAQItem {
 export const faqItems: FAQItem[] = [
   {
     id: "1",
-    question: "What services do you offer?",
-    answer: "I offer UI/UX design, product design, design systems, prototyping, and front-end development. I can help with everything from initial research and wireframing to high-fidelity designs and implementation.",
+    question: "What's your design process like?",
+    answer: "I start with discovery: stakeholder interviews, competitive analysis, and user research. From there I move into wireframes, interaction design, high-fidelity UI, and prototyping. I iterate based on usability testing and analytics, and create clean handoff specs for engineering.",
   },
   {
     id: "2",
-    question: "What is your design process?",
-    answer: "My process typically involves discovery and research, wireframing, visual design, prototyping, and iteration based on feedback. I believe in close collaboration with stakeholders throughout every phase.",
+    question: "How do you collaborate with product and engineering teams?",
+    answer: "I embed directly with cross-functional teams. I join sprint planning, participate in design reviews with engineers, and work closely with PMs to align on priorities. I've found the best products come from designers who understand technical constraints and business goals, not just pixels.",
   },
   {
     id: "3",
-    question: "How long does a typical project take?",
-    answer: "Project timelines vary based on scope and complexity. A landing page might take 1-2 weeks, while a full product design can take 4-8 weeks. I'll provide a detailed timeline after understanding your requirements.",
+    question: "What types of products have you designed for?",
+    answer: "I've worked across SaaS, fintech, e-commerce, and consumer mobile apps. I'm drawn to complex, workflow-heavy products where simplifying the user experience has real impact. Think dashboards, multi-step flows, and enterprise tools.",
   },
   {
     id: "4",
-    question: "Do you work with startups?",
-    answer: "Absolutely! I love working with startups and helping them build their product from the ground up. I understand the fast-paced environment and can adapt my process to match your speed.",
+    question: "Do you have experience with design systems?",
+    answer: "Yes. I've built design systems from scratch and contributed to scaling existing ones across product teams. I focus on reusable components, consistent interaction patterns, and clear documentation so the system actually gets adopted.",
   },
   {
     id: "5",
-    question: "Are you available for freelance work?",
-    answer: "Yes, I'm currently open to freelance opportunities. Feel free to reach out through the contact form below or send me an email to discuss your project.",
+    question: "How do you use AI in your design workflow?",
+    answer: "I use AI tools like Claude and Cursor to accelerate ideation, explore design variations faster, generate copy drafts, and prototype front-end interactions. It lets me spend more time on the hard design decisions and less on repetitive execution.",
   },
 ]
 
@@ -222,14 +233,13 @@ export interface ContactInfo {
 }
 
 export const contactInfo: ContactInfo = {
-  email: "hello@munigoutham.com",
+  email: "muni.uiux@gmail.com",
   socials: [
-    { platform: "GitHub", url: "https://github.com" },
-    { platform: "LinkedIn", url: "https://linkedin.com" },
-    { platform: "Dribbble", url: "https://dribbble.com" },
-    { platform: "X", url: "https://x.com" },
+    { platform: "LinkedIn", url: "https://linkedin.com/in/munigoutham" },
+    { platform: "GitHub", url: "https://github.com/MUNIGOUTHAM-REDDY" },
+    { platform: "Behance", url: "https://behance.net/munigoutham3" },
   ],
-  availability: "Open to freelance opportunities",
+  availability: "Open to full-time opportunities",
 }
 
 // --- Navigation ---

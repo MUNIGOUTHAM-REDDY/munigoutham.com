@@ -10,6 +10,7 @@ body,
 #root {
   width: 100%;
   min-height: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -22,6 +23,12 @@ body {
 
 @theme inline {
   --animate-meteor-effect: meteor 5s linear infinite;
+  --animate-marquee: marquee 30s linear infinite;
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
 
   @keyframes meteor {
     0% {
@@ -71,7 +78,6 @@ body {
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
   --radius-sm: calc(var(--radius) * 0.6);

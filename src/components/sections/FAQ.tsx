@@ -61,7 +61,7 @@ function FAQAccordionItem({ item }: { item: (typeof faqItems)[number] }) {
 export default function FAQ() {
   return (
     <section id="faq" className="px-6 md:px-12 py-20 md:py-28 max-w-3xl mx-auto">
-      <SectionHeader title="FAQ" subtitle="Common questions answered" />
+      <SectionHeader title="FAQ" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}

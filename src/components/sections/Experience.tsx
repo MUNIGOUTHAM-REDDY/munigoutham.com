@@ -5,15 +5,13 @@ import SectionHeader from './SectionHeader'
 export default function Experience() {
   return (
     <section id="experience" className="px-6 md:px-12 py-20 md:py-28 max-w-6xl mx-auto">
-      <SectionHeader title="Experience" subtitle="Where I've worked" />
+      <SectionHeader title="Work Experience" />
 
       <div className="relative ml-4 md:ml-6">
-        {/* Timeline line */}
-        <div className="absolute left-0 top-2 bottom-2 w-px bg-white/10" />
-
         <div className="space-y-12">
           {experiences.map((exp, i) => {
             const isCurrent = exp.endDate === null
+            const isLast = i === experiences.length - 1
             return (
               <motion.div
                 key={exp.id}
@@ -31,40 +29,60 @@ export default function Experience() {
                       : 'bg-surface border-white/30'
                   }`}
                 />
+                {/* Connector line to next dot */}
+                {!isLast && (
+                  <div className="absolute left-0 top-4 bottom-[-3rem] w-px -translate-x-1/2 bg-white/10" />
+                )}
 
-                <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-4 mb-2">
-                  <h3 className="font-['Montserrat',sans-serif] font-bold text-lg text-white">
-                    {exp.role}
-                  </h3>
-                  <span className="text-white/40 text-sm">
-                    {exp.company}
-                  </span>
+                <h3 className="font-['Montserrat',sans-serif] font-bold text-lg text-white mb-1">
+                  {exp.role}
+                </h3>
+                <div className="flex flex-wrap items-center gap-x-2 text-sm mb-2">
+                  {exp.companyUrl ? (
+                    <a
+                      href={exp.companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/40 underline decoration-white/20 underline-offset-2 hover:text-accent hover:decoration-accent/40 transition-colors inline-flex items-center gap-1"
+                    >
+                      {exp.company}
+                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" className="opacity-50">
+                        <path d="M3.5 1.5H10.5V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M10.5 1.5L1.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </a>
+                  ) : (
+                    <span className="text-white/40">{exp.company}</span>
+                  )}
+                  <span className="text-white/20">·</span>
+                  <span className="text-white/30">{exp.startDate} - {exp.endDate ?? 'Present'}</span>
                 </div>
 
-                <p className="text-accent/70 text-xs font-['Montserrat',sans-serif] font-medium uppercase tracking-wider mb-3">
-                  {exp.startDate} — {exp.endDate ?? 'Present'}
-                </p>
+                {exp.description.length > 0 && (
+                  <p className="text-white/50 text-sm leading-relaxed">
+                    {exp.description[0]}
+                  </p>
+                )}
 
-                <ul className="space-y-2 mb-4">
-                  {exp.description.map((desc, j) => (
-                    <li
-                      key={j}
-                      className="text-white/50 text-sm leading-relaxed pl-4 relative before:absolute before:left-0 before:top-2 before:w-1 before:h-1 before:rounded-full before:bg-white/20"
-                    >
-                      {desc}
-                    </li>
-                  ))}
-                </ul>
-
-                {exp.tags && (
-                  <div className="flex flex-wrap gap-2">
-                    {exp.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="bg-white/5 text-white/60 rounded-full px-3 py-1 text-xs font-['Montserrat',sans-serif]"
+                {exp.apps && exp.apps.length > 0 && (
+                  <div className="flex items-center gap-5 mt-3">
+                    {exp.apps.map((app) => (
+                      <a
+                        key={app.name}
+                        href={app.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group relative"
                       >
-                        {tag}
-                      </span>
+                        <img
+                          src={app.icon}
+                          alt={app.name}
+                          className="w-12 h-12 rounded-2xl ring-1 ring-white/15 group-hover:scale-110 group-hover:ring-white/30 transition-all duration-200"
+                        />
+                        <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-white/60 text-xs font-['Montserrat',sans-serif] font-medium whitespace-nowrap group-hover:text-white transition-colors">
+                          {app.name}
+                        </span>
+                      </a>
                     ))}
                   </div>
                 )}
