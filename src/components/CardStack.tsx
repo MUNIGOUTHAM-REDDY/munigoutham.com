@@ -82,7 +82,7 @@ export default function CardStack({ children, header, startScale = 0.9, holdVh =
           padding: '40px 0',
         }}
       >
-        <div className="max-w-4xl mx-auto px-6 md:px-12">
+        <div className="w-full max-w-6xl xl:max-w-7xl mx-auto px-6 md:px-12">
           {header}
           <div style={{ position: 'relative' }}>
             {items.map((child, i) => (

@@ -15,8 +15,8 @@ function ToolMarquee() {
   const doubled = [...tools, ...tools]
   return (
     <div className="relative overflow-hidden mt-12">
-      <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#06040d] to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#06040d] to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#010101] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#010101] to-transparent z-10 pointer-events-none" />
       <div className="flex animate-marquee w-max">
         {doubled.map((tool, i) => (
           <div key={i} className="flex flex-col items-center gap-3 px-8 md:px-10 shrink-0">
@@ -41,26 +41,14 @@ export default function About() {
     <section id="about" className="px-6 md:px-12 py-20 md:py-28 max-w-6xl mx-auto">
       <SectionHeader title="About Me" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-10 lg:gap-16">
-        {/* Photo placeholder */}
-        <motion.div
-          className="aspect-square rounded-2xl bg-card border border-white/[0.06] flex items-center justify-center max-w-sm mx-auto lg:max-w-none w-full"
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.5 }}
-        >
-          <span className="text-white/20 text-sm font-['Montserrat',sans-serif]">
-            Photo
-          </span>
-        </motion.div>
-
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr] gap-10 lg:gap-16 items-center">
         {/* Text content */}
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          className="order-2 md:order-1"
+          initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
         >
           <h3 className="font-['Montserrat',sans-serif] font-bold text-2xl md:text-3xl text-white mb-6">
             {profile.headline}
@@ -74,6 +62,25 @@ export default function About() {
               {paragraph}
             </p>
           ))}
+        </motion.div>
+
+        {/* Photo */}
+        <motion.div
+          className="relative aspect-square flex items-center justify-center max-w-sm mx-auto lg:max-w-none w-full order-1 md:order-2 overflow-hidden rounded-2xl"
+          initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
+          whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <img 
+            src="/images/profile-photo.png" 
+            alt="Profile" 
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+          {/* Simple, soft edge blend using inset shadows that match the background */}
+          <div className="absolute inset-0 shadow-[inset_0_0_20px_10px_#010101] pointer-events-none" />
+          <div className="absolute inset-0 shadow-[inset_0_0_40px_20px_#010101] pointer-events-none" />
         </motion.div>
       </div>
 

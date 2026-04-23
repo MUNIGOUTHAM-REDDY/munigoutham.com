@@ -41,10 +41,10 @@ export default function Contact() {
     <section id="contact" className="px-6 md:px-12 py-20 md:py-28 max-w-6xl mx-auto">
       <motion.div
         className="mb-12 md:mb-16"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
       >
         <h2 className="font-['Montserrat',sans-serif] font-bold text-3xl md:text-4xl lg:text-5xl text-white">
           Looking for a Product Designer?
@@ -53,10 +53,10 @@ export default function Contact() {
 
       <motion.div
         className="relative bg-card border border-white/[0.06] rounded-2xl p-6 md:p-8 overflow-hidden max-w-2xl"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+        transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
       >
           <GridDecoration />
 

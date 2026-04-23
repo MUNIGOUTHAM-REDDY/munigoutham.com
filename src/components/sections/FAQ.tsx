@@ -42,10 +42,10 @@ function FAQAccordionItem({ item }: { item: (typeof faqItems)[number] }) {
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            initial={{ height: 0, opacity: 0, filter: 'blur(4px)' }}
+            animate={{ height: 'auto', opacity: 1, filter: 'blur(0px)' }}
+            exit={{ height: 0, opacity: 0, filter: 'blur(4px)' }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
             <p className="text-white/50 text-sm leading-relaxed pb-5">
@@ -64,10 +64,10 @@ export default function FAQ() {
       <SectionHeader title="FAQ" />
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
       >
         {faqItems.map((item) => (
           <FAQAccordionItem key={item.id} item={item} />

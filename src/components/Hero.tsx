@@ -9,7 +9,7 @@ import iconGame from '../assets/icon-game.svg'
 import starHeader from '../assets/star-header.svg'
 import glow1 from '../assets/glow1.svg'
 import glow2 from '../assets/glow2.svg'
-import { Meteors } from '@/components/ui/meteors'
+
 import StarBorder from './StarBorder'
 import './Hero.css'
 
@@ -65,10 +65,7 @@ export default function Hero() {
       <img className="hero__glow hero__glow--1" src={glow1} alt="" aria-hidden="true" />
       <img className="hero__glow hero__glow--2" src={glow2} alt="" aria-hidden="true" />
 
-      {/* Meteors */}
-      <div className="hero__meteors">
-        <Meteors number={10} />
-      </div>
+
 
       {/* Top bar: INDIA ✦ 14:34 (mobile + tablet) */}
       <div className="hero__topbar">
@@ -103,9 +100,6 @@ export default function Hero() {
           <span>Product Designer</span>
         </div>
       </div>
-
-      {/* Bottom gradient fade */}
-      <div className="hero__bottom-fade" />
 
       {/* Bottom nav with StarBorder (mobile + tablet) */}
       <div className="hero__bottomnav">

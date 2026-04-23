@@ -16,10 +16,10 @@ export default function Experience() {
               <motion.div
                 key={exp.id}
                 className="relative pl-8 md:pl-10"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                transition={{ duration: 1, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
               >
                 {/* Timeline dot */}
                 <div

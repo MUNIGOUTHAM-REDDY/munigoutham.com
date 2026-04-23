@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
+import { Link } from 'react-router-dom'
 import { navItems, contactInfo } from '../data/portfolio'
 import { socialIcons } from './SocialIcons'
 
@@ -32,21 +33,26 @@ function scrollToSection(sectionId: string) {
   }
 }
 
-export default function ScrollHeader() {
-  const [visible, setVisible] = useState(false)
+export default function ScrollHeader({ alwaysVisible = false, showBackArrow = false }: { alwaysVisible?: boolean; showBackArrow?: boolean }) {
+  const [visible, setVisible] = useState(alwaysVisible)
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
+    if (alwaysVisible) return
     const handleScroll = () => {
       setVisible(window.scrollY > window.innerHeight * 0.8)
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [alwaysVisible])
 
   const handleNavClick = (sectionId: string) => {
     setMenuOpen(false)
-    setTimeout(() => scrollToSection(sectionId), 100)
+    if (window.location.pathname === '/') {
+      setTimeout(() => scrollToSection(sectionId), 100)
+    } else {
+      window.location.href = `/#${sectionId}`
+    }
   }
 
   return (
@@ -54,19 +60,25 @@ export default function ScrollHeader() {
       <AnimatePresence>
         {visible && (
           <motion.header
-            className="fixed top-0 left-0 right-0 z-50 bg-[#06040d]/90 backdrop-blur-md border-b border-white/5"
+            className="fixed top-0 left-0 right-0 z-50 bg-[#010101]/90 backdrop-blur-sm border-b border-white/5"
             initial={{ y: -80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -80, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
           >
             <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-              <button
-                onClick={() => handleNavClick('hero')}
-                className="font-['Montserrat',sans-serif] font-bold text-white text-lg tracking-tight"
-              >
-                Muni Goutham
-              </button>
+              {showBackArrow ? (
+                <Link to="/" className="text-white/60 hover:text-white transition-colors text-xl">
+                  &larr;
+                </Link>
+              ) : (
+                <button
+                  onClick={() => handleNavClick('hero')}
+                  className="font-['Montserrat',sans-serif] font-bold text-white text-lg tracking-tight"
+                >
+                  Muni Goutham
+                </button>
+              )}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="relative z-50 p-2 -mr-2"
@@ -82,7 +94,7 @@ export default function ScrollHeader() {
       <AnimatePresence>
         {menuOpen && visible && (
           <motion.div
-            className="fixed inset-0 z-40 bg-[#06040d]/95 backdrop-blur-lg flex flex-col items-center justify-center"
+            className="fixed inset-0 z-40 bg-[#010101]/95 backdrop-blur-md flex flex-col items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

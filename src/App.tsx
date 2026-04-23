@@ -1,5 +1,5 @@
 import { Analytics } from '@vercel/analytics/react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, ScrollRestoration, Outlet } from 'react-router-dom'
 import Hero from './components/Hero'
 import ScrollHeader from './components/ScrollHeader'
 import Projects from './components/sections/Projects'
@@ -13,6 +13,17 @@ import { SmoothCursor } from './components/ui/smooth-cursor'
 import CaseStudyMindsnack from './pages/CaseStudyMindsnack'
 import CaseStudyTrialFix from './pages/CaseStudyTrialFix'
 import CaseStudyCardsToArticles from './pages/CaseStudyCardsToArticles'
+import BezierLab from './pages/BezierLab'
+
+function Layout() {
+  return (
+    <>
+      <ScrollRestoration />
+      <Analytics />
+      <Outlet />
+    </>
+  )
+}
 
 function HomePage() {
   return (
@@ -33,18 +44,21 @@ function HomePage() {
   )
 }
 
+const router = createBrowserRouter([
+  {
+    element: <Layout />,
+    children: [
+      { path: '/', element: <HomePage /> },
+      { path: '/case-study/mindsnack', element: <CaseStudyMindsnack /> },
+      { path: '/case-study/trial-cancellation-fix', element: <CaseStudyTrialFix /> },
+      { path: '/case-study/cards-to-articles', element: <CaseStudyCardsToArticles /> },
+      { path: '/playground/bezier', element: <BezierLab /> },
+    ],
+  },
+])
+
 function App() {
-  return (
-    <BrowserRouter>
-      <Analytics />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/case-study/mindsnack" element={<CaseStudyMindsnack />} />
-        <Route path="/case-study/trial-cancellation-fix" element={<CaseStudyTrialFix />} />
-        <Route path="/case-study/cards-to-articles" element={<CaseStudyCardsToArticles />} />
-      </Routes>
-    </BrowserRouter>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App

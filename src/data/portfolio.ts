@@ -17,7 +17,7 @@ export const projects: Project[] = [
   {
     id: "1",
     title: "Mindsnack",
-    description: "Designed the entire iOS learning app as solo designer — onboarding, lessons, App Store presence. 31.9% conversion rate, 10% fewer cancellations.",
+    description: "Designed the entire iOS learning app as solo designer. Onboarding, lessons, App Store presence. 31.9% conversion rate, 10% fewer cancellations.",
     tags: ["Product Design", "iOS", "Solo Designer"],
     slug: "/case-study/mindsnack",
     featured: true,
@@ -25,7 +25,7 @@ export const projects: Project[] = [
   {
     id: "2",
     title: "Trial Cancellation Fix",
-    description: "One screen cut trial cancellations by 10%. Users weren't unhappy — they were scared of surprise charges. I removed the fear.",
+    description: "One screen cut trial cancellations by 10%.\nUsers weren't unhappy, they were scared of surprise charges. I removed the fear.",
     tags: ["UX Research", "Conversion", "Behavioral Design"],
     slug: "/case-study/trial-cancellation-fix",
   },
@@ -143,45 +143,39 @@ export interface PlaygroundItem {
   id: string
   title: string
   description: string
-  category: string
+  tags: string[]
+  externalUrl?: string
+  internalRoute?: string
 }
 
 export const playgroundItems: PlaygroundItem[] = [
   {
-    id: "1",
-    title: "3D Card Hover Effect",
-    description: "Interactive card with perspective transforms and lighting effects on hover.",
-    category: "Animation",
+    id: "tessellate-resources",
+    title: "Tessellate Resources",
+    description: "A curated directory of design and development tools. Users discover, vote on, and stash resources into personal decks.",
+    tags: ["Product", "React", "Supabase"],
+    externalUrl: "https://tessellate-resources.vercel.app",
   },
   {
-    id: "2",
-    title: "Glassmorphism Calculator",
-    description: "A functional calculator with frosted glass aesthetic and smooth transitions.",
-    category: "UI Experiment",
+    id: "bezier-lab",
+    title: "Bezier Lab",
+    description: "An interactive cubic-bezier editor. Drag handles, compare presets, and learn the motion curves that power great UI.",
+    tags: ["Motion", "Tool", "Interactive"],
+    internalRoute: "/playground/bezier",
   },
   {
-    id: "3",
-    title: "Particle Background",
-    description: "Canvas-based particle system that responds to mouse movement.",
-    category: "Creative Code",
+    id: "tessellate-admin",
+    title: "Tessellate Admin",
+    description: "Companion CMS for Tessellate. Manage decks, users, and curated recommendations.",
+    tags: ["Dashboard", "Admin UX"],
+    externalUrl: "https://tessellate-admin.vercel.app",
   },
   {
-    id: "4",
-    title: "Dark Theme Toggle",
-    description: "Animated theme switcher with morphing sun/moon icon and smooth color transitions.",
-    category: "Micro-interaction",
-  },
-  {
-    id: "5",
-    title: "Scroll-driven Gallery",
-    description: "Image gallery where layout transforms based on scroll position.",
-    category: "Animation",
-  },
-  {
-    id: "6",
-    title: "Neubrutalism Form",
-    description: "Bold form design with chunky borders, bright accents, and playful validation.",
-    category: "UI Experiment",
+    id: "influencerhawa",
+    title: "InfluencerHawa",
+    description: "Enterprise influencer marketing platform. Brands × creators × agencies, with KPIs, escrow and merit scoring. Built on Salesforce Lightning.",
+    tags: ["Enterprise UX", "Dashboards", "SLDS"],
+    externalUrl: "https://influencerhawa.vercel.app",
   },
 ]
 

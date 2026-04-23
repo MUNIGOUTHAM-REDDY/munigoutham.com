@@ -18,8 +18,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     // Send the form submission to you
     await resend.emails.send({
-      from: 'Portfolio <onboarding@resend.dev>',
+      from: 'Portfolio <contact@munigoutham.com>',
       to: YOUR_EMAIL,
+      replyTo: email,
       subject: `Portfolio: ${subject}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px;">
@@ -35,7 +36,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Send acknowledgement to the sender
     await resend.emails.send({
-      from: 'Muni Goutham <onboarding@resend.dev>',
+      from: 'Muni Goutham <contact@munigoutham.com>',
       to: email,
       subject: 'Thanks for reaching out!',
       html: `
