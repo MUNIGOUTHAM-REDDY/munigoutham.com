@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { BackButton, Fade, PhoneMockup, Label, AccentDivider, SectionH, Body, Section, InfoCard, MetaRow, CaseStudyFooter } from '../components/case-study/CaseStudyComponents'
+import SEO from '../components/SEO'
+import { CASE_STUDY_SEO } from '../data/seo'
 
 const I = {
   v1_card1: "/images/cs3/v1-concept-1.png",
@@ -21,6 +23,7 @@ export default function CaseStudyCardsToArticles() {
 
   return (
     <div className="min-h-screen bg-surface text-white">
+      <SEO {...CASE_STUDY_SEO['cards-to-articles']} />
       <BackButton />
 
       {/* HERO */}

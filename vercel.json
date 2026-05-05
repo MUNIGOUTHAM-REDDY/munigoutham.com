@@ -1,6 +1,10 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/case-study/mindsnack", "destination": "/case-study/mindsnack/index.html" },
+    { "source": "/case-study/trial-cancellation-fix", "destination": "/case-study/trial-cancellation-fix/index.html" },
+    { "source": "/case-study/cards-to-articles", "destination": "/case-study/cards-to-articles/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

@@ -10,6 +10,8 @@ import FAQ from './components/sections/FAQ'
 import Contact from './components/sections/Contact'
 import Footer from './components/sections/Footer'
 import { SmoothCursor } from './components/ui/smooth-cursor'
+import SEO from './components/SEO'
+import { HOME_SEO } from './data/seo'
 import CaseStudyMindsnack from './pages/CaseStudyMindsnack'
 import CaseStudyTrialFix from './pages/CaseStudyTrialFix'
 import CaseStudyCardsToArticles from './pages/CaseStudyCardsToArticles'
@@ -28,6 +30,7 @@ function Layout() {
 function HomePage() {
   return (
     <>
+      <SEO {...HOME_SEO} />
       <SmoothCursor />
       <ScrollHeader />
       <main className="relative z-10 bg-[#010101]">

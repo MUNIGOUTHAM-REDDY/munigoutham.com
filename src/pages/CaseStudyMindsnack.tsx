@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { Fade, PhoneMockup, Label, AccentDivider, SectionH, Body, Section, StatCard, InfoCard, MetaRow, CaseStudyFooter } from '../components/case-study/CaseStudyComponents'
 import ScrollHeader from '../components/ScrollHeader'
+import SEO from '../components/SEO'
+import { CASE_STUDY_SEO } from '../data/seo'
 
 const I = {
   hero1: "/images/cs1/v2-home.png",
@@ -30,6 +32,7 @@ export default function CaseStudyMindsnack() {
 
   return (
     <div className="min-h-screen bg-surface text-white">
+      <SEO {...CASE_STUDY_SEO.mindsnack} />
       <ScrollHeader alwaysVisible showBackArrow />
 
       {/* HERO */}

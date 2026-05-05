@@ -70,8 +70,11 @@
 .hero__topbar {
   position: absolute;
   top: 23px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
   z-index: 10;
 }
 

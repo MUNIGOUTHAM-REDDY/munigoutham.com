@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { BackButton, Fade, PhoneMockup, Label, AccentDivider, SectionH, Body, Section, StatCard, MetaRow, CaseStudyFooter } from '../components/case-study/CaseStudyComponents'
+import SEO from '../components/SEO'
+import { CASE_STUDY_SEO } from '../data/seo'
 
 const I = {
   paywall: "/images/cs2/paywall.png",
@@ -14,6 +16,7 @@ export default function CaseStudyTrialFix() {
 
   return (
     <div className="min-h-screen bg-surface text-white">
+      <SEO {...CASE_STUDY_SEO['trial-cancellation-fix']} />
       <BackButton />
 
       {/* HERO */}

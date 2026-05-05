@@ -1,5 +1,6 @@
 import { Link, useLocation, useRouteError, isRouteErrorResponse } from 'react-router-dom'
 import { motion } from 'motion/react'
+import SEO from '../components/SEO'
 
 export default function NotFound() {
   const location = useLocation()
@@ -19,6 +20,12 @@ export default function NotFound() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#06040d] text-white">
+      <SEO
+        title={`${title} · Muni Goutham`}
+        description="The page you tried to reach does not exist."
+        path={location.pathname}
+        noindex
+      />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-60"
