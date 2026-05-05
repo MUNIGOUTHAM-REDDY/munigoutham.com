@@ -20,30 +20,25 @@ interface SectionHeaderProps {
 export default function SectionHeader({ title, subtitle, action }: SectionHeaderProps) {
   return (
     <motion.div
-      className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6"
+      className="mb-12 md:mb-16"
       initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div>
-        <div className="flex items-center gap-3 mb-3">
+      <div className="flex items-center justify-between gap-3 mb-3">
+        <div className="flex items-center gap-3 min-w-0">
           <StarIcon className="w-5 h-5 shrink-0" />
           <h2 className="font-['Montserrat',sans-serif] font-bold text-3xl md:text-4xl lg:text-5xl text-white">
             {title}
           </h2>
         </div>
-        {subtitle && (
-          <p className="font-['Cormorant_Garamond',serif] text-lg md:text-xl text-white/50 ml-8">
-            {subtitle}
-          </p>
-        )}
+        {action && <div className="flex-shrink-0">{action}</div>}
       </div>
-      
-      {action && (
-        <div className="flex-shrink-0">
-          {action}
-        </div>
+      {subtitle && (
+        <p className="font-['Cormorant_Garamond',serif] text-lg md:text-xl text-white/50 ml-8">
+          {subtitle}
+        </p>
       )}
     </motion.div>
   )

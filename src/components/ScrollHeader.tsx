@@ -36,6 +36,7 @@ function scrollToSection(sectionId: string) {
 export default function ScrollHeader({ alwaysVisible = false, showBackArrow = false }: { alwaysVisible?: boolean; showBackArrow?: boolean }) {
   const [visible, setVisible] = useState(alwaysVisible)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>(navItems[0]?.label ?? '')
 
   useEffect(() => {
     if (alwaysVisible) return
@@ -45,6 +46,31 @@ export default function ScrollHeader({ alwaysVisible = false, showBackArrow = fa
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [alwaysVisible])
+
+  useEffect(() => {
+    if (showBackArrow) return
+    const sections = navItems
+      .map((item) => ({ label: item.label, el: document.getElementById(item.sectionId) }))
+      .filter((s): s is { label: string; el: HTMLElement } => Boolean(s.el))
+    if (sections.length === 0) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+        if (visibleEntries.length > 0) {
+          const id = visibleEntries[0].target.id
+          const match = navItems.find((n) => n.sectionId === id)
+          if (match) setActiveSection(match.label)
+        }
+      },
+      { rootMargin: '-40% 0px -50% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] },
+    )
+
+    sections.forEach((s) => observer.observe(s.el))
+    return () => observer.disconnect()
+  }, [showBackArrow])
 
   const handleNavClick = (sectionId: string) => {
     setMenuOpen(false)
@@ -60,7 +86,7 @@ export default function ScrollHeader({ alwaysVisible = false, showBackArrow = fa
       <AnimatePresence>
         {visible && (
           <motion.header
-            className="fixed top-0 left-0 right-0 z-50 bg-[#010101]/90 backdrop-blur-sm border-b border-white/5"
+            className="fixed top-0 left-0 right-0 z-50 bg-[#010101]/90 backdrop-blur-sm border-b border-white/5 lg:hidden"
             initial={{ y: -80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -80, opacity: 0 }}
@@ -72,12 +98,18 @@ export default function ScrollHeader({ alwaysVisible = false, showBackArrow = fa
                   &larr;
                 </Link>
               ) : (
-                <button
-                  onClick={() => handleNavClick('hero')}
-                  className="font-['Montserrat',sans-serif] font-bold text-white text-lg tracking-tight"
-                >
-                  Muni Goutham
-                </button>
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span
+                    key={activeSection}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.2 }}
+                    className="font-['Montserrat',sans-serif] font-bold text-white text-lg tracking-tight"
+                  >
+                    {activeSection}
+                  </motion.span>
+                </AnimatePresence>
               )}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
@@ -105,7 +137,7 @@ export default function ScrollHeader({ alwaysVisible = false, showBackArrow = fa
                 <motion.button
                   key={item.sectionId}
                   onClick={() => handleNavClick(item.sectionId)}
-                  className="font-['Montserrat',sans-serif] font-bold text-3xl md:text-4xl text-white/80 hover:text-[#87C23B] transition-colors"
+                  className="font-['Montserrat',sans-serif] font-medium text-3xl md:text-4xl text-white/80 hover:text-[#87C23B] transition-colors"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
@@ -117,7 +149,7 @@ export default function ScrollHeader({ alwaysVisible = false, showBackArrow = fa
             </nav>
 
             <motion.div
-              className="absolute bottom-12 flex items-center gap-6"
+              className="absolute bottom-12 left-0 right-0 px-6 flex flex-wrap items-center justify-center gap-5"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
@@ -129,10 +161,11 @@ export default function ScrollHeader({ alwaysVisible = false, showBackArrow = fa
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/40 hover:text-white transition-colors"
+                  aria-label={social.platform}
+                  className="inline-flex items-center justify-center"
                 >
                   {socialIcons[social.platform] || (
-                    <span className="text-sm font-['Montserrat',sans-serif]">
+                    <span className="text-sm font-['Montserrat',sans-serif] text-white/40 hover:text-white transition-colors">
                       {social.platform}
                     </span>
                   )}

@@ -211,14 +211,14 @@ export function SmoothCursor({
       })
     }
 
-    document.body.style.cursor = "none"
+    document.documentElement.classList.add("smooth-cursor-active")
     window.addEventListener("pointermove", throttledPointerMove, {
       passive: true,
     })
 
     return () => {
       window.removeEventListener("pointermove", throttledPointerMove)
-      document.body.style.cursor = "auto"
+      document.documentElement.classList.remove("smooth-cursor-active")
       if (rafId) cancelAnimationFrame(rafId)
       if (timeout !== null) {
         clearTimeout(timeout)

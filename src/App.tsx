@@ -13,7 +13,7 @@ import { SmoothCursor } from './components/ui/smooth-cursor'
 import CaseStudyMindsnack from './pages/CaseStudyMindsnack'
 import CaseStudyTrialFix from './pages/CaseStudyTrialFix'
 import CaseStudyCardsToArticles from './pages/CaseStudyCardsToArticles'
-import BezierLab from './pages/BezierLab'
+import NotFound from './pages/NotFound'
 
 function Layout() {
   return (
@@ -30,7 +30,7 @@ function HomePage() {
     <>
       <SmoothCursor />
       <ScrollHeader />
-      <main>
+      <main className="relative z-10 bg-[#010101]">
         <Hero />
         <Projects />
         <About />
@@ -38,8 +38,8 @@ function HomePage() {
         <Playground />
         <FAQ />
         <Contact />
-        <Footer />
       </main>
+      <Footer />
     </>
   )
 }
@@ -47,12 +47,13 @@ function HomePage() {
 const router = createBrowserRouter([
   {
     element: <Layout />,
+    errorElement: <NotFound />,
     children: [
       { path: '/', element: <HomePage /> },
       { path: '/case-study/mindsnack', element: <CaseStudyMindsnack /> },
       { path: '/case-study/trial-cancellation-fix', element: <CaseStudyTrialFix /> },
       { path: '/case-study/cards-to-articles', element: <CaseStudyCardsToArticles /> },
-      { path: '/playground/bezier', element: <BezierLab /> },
+      { path: '*', element: <NotFound /> },
     ],
   },
 ])

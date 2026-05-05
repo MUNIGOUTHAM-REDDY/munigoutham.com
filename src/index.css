@@ -21,6 +21,14 @@ body {
   color: #ffffff;
 }
 
+html.smooth-cursor-active,
+html.smooth-cursor-active body,
+html.smooth-cursor-active *,
+html.smooth-cursor-active *::before,
+html.smooth-cursor-active *::after {
+  cursor: none !important;
+}
+
 @theme inline {
   --animate-meteor-effect: meteor 5s linear infinite;
   --animate-marquee: marquee 30s linear infinite;

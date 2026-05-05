@@ -34,32 +34,32 @@ export default function Experience() {
                   <div className="absolute left-0 top-4 bottom-[-3rem] w-px -translate-x-1/2 bg-white/10" />
                 )}
 
-                <h3 className="font-['Montserrat',sans-serif] font-bold text-lg text-white mb-1">
+                <h3 className="font-['Montserrat',sans-serif] font-bold text-xl md:text-2xl text-white mb-2">
                   {exp.role}
                 </h3>
-                <div className="flex flex-wrap items-center gap-x-2 text-sm mb-2">
+                <div className="flex flex-wrap items-center gap-x-2.5 text-base md:text-lg mb-3">
                   {exp.companyUrl ? (
                     <a
                       href={exp.companyUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white/40 underline decoration-white/20 underline-offset-2 hover:text-accent hover:decoration-accent/40 transition-colors inline-flex items-center gap-1"
+                      className="text-white/55 underline decoration-white/20 underline-offset-2 hover:text-accent hover:decoration-accent/40 transition-colors inline-flex items-center gap-1.5"
                     >
                       {exp.company}
-                      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" className="opacity-50">
+                      <svg width="13" height="13" viewBox="0 0 12 12" fill="none" className="opacity-60">
                         <path d="M3.5 1.5H10.5V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M10.5 1.5L1.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </a>
                   ) : (
-                    <span className="text-white/40">{exp.company}</span>
+                    <span className="text-white/55">{exp.company}</span>
                   )}
                   <span className="text-white/20">·</span>
-                  <span className="text-white/30">{exp.startDate} - {exp.endDate ?? 'Present'}</span>
+                  <span className="text-white/40">{exp.startDate} - {exp.endDate ?? 'Present'}</span>
                 </div>
 
                 {exp.description.length > 0 && (
-                  <p className="text-white/50 text-sm leading-relaxed">
+                  <p className="text-white/60 text-base md:text-lg leading-relaxed md:max-w-3xl">
                     {exp.description[0]}
                   </p>
                 )}

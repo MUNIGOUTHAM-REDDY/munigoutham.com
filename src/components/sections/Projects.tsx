@@ -21,13 +21,6 @@ export default function Projects() {
         className={`group relative flex flex-col md:flex-row items-start md:items-center py-12 md:py-16 border-b border-white/[0.06] transition-colors ${project.slug ? 'cursor-pointer' : ''}`}
       >
         <div className="flex-1 pr-8 md:pr-16 order-2 md:order-1 mt-8 md:mt-0">
-          <div className="flex flex-wrap gap-4 mb-5">
-            {project.tags.map(tag => (
-              <span key={tag} className="text-[10px] sm:text-[11px] font-semibold tracking-[0.2em] uppercase text-white/40">
-                {tag}
-              </span>
-            ))}
-          </div>
           <h3 className="font-['Montserrat',sans-serif] font-bold text-3xl md:text-4xl lg:text-5xl text-white mb-5 group-hover:text-[#87C23B] transition-colors tracking-tight">
             {project.title}
           </h3>

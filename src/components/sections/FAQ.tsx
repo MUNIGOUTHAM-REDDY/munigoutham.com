@@ -6,11 +6,11 @@ import SectionHeader from './SectionHeader'
 function ChevronIcon({ open }: { open: boolean }) {
   return (
     <motion.svg
-      width="20"
-      height="20"
+      width="24"
+      height="24"
       viewBox="0 0 20 20"
       fill="none"
-      className="shrink-0"
+      className="shrink-0 text-white/70"
       animate={{ rotate: open ? 180 : 0 }}
       transition={{ duration: 0.3 }}
     >
@@ -32,9 +32,9 @@ function FAQAccordionItem({ item }: { item: (typeof faqItems)[number] }) {
     <div className="border-b border-white/10">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between gap-4 py-5 text-left"
+        className="w-full flex items-center justify-between gap-6 py-7 md:py-8 text-left"
       >
-        <span className="font-['Montserrat',sans-serif] font-medium text-base text-white">
+        <span className="font-['Montserrat',sans-serif] font-medium text-lg md:text-xl text-white">
           {item.question}
         </span>
         <ChevronIcon open={open} />
@@ -48,7 +48,7 @@ function FAQAccordionItem({ item }: { item: (typeof faqItems)[number] }) {
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <p className="text-white/50 text-sm leading-relaxed pb-5">
+            <p className="text-white/55 text-base md:text-lg leading-relaxed pb-7 md:pb-8 md:max-w-3xl">
               {item.answer}
             </p>
           </motion.div>
@@ -60,7 +60,7 @@ function FAQAccordionItem({ item }: { item: (typeof faqItems)[number] }) {
 
 export default function FAQ() {
   return (
-    <section id="faq" className="px-6 md:px-12 py-20 md:py-28 max-w-3xl mx-auto">
+    <section id="faq" className="px-6 md:px-12 py-20 md:py-28 max-w-5xl mx-auto">
       <SectionHeader title="FAQ" />
 
       <motion.div

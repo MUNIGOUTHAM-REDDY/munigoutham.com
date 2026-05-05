@@ -157,13 +157,6 @@ export const playgroundItems: PlaygroundItem[] = [
     externalUrl: "https://tessellate-resources.vercel.app",
   },
   {
-    id: "bezier-lab",
-    title: "Bezier Lab",
-    description: "An interactive cubic-bezier editor. Drag handles, compare presets, and learn the motion curves that power great UI.",
-    tags: ["Motion", "Tool", "Interactive"],
-    internalRoute: "/playground/bezier",
-  },
-  {
     id: "tessellate-admin",
     title: "Tessellate Admin",
     description: "Companion CMS for Tessellate. Manage decks, users, and curated recommendations.",
@@ -232,6 +225,11 @@ export const contactInfo: ContactInfo = {
     { platform: "LinkedIn", url: "https://linkedin.com/in/munigoutham" },
     { platform: "GitHub", url: "https://github.com/MUNIGOUTHAM-REDDY" },
     { platform: "Behance", url: "https://behance.net/munigoutham3" },
+    // Hidden until URLs are wired up — re-enable when ready
+    // { platform: "Instagram", url: "#" },
+    // { platform: "X", url: "#" },
+    // { platform: "Pinterest", url: "#" },
+    // { platform: "Dribbble", url: "#" },
   ],
   availability: "Open to full-time opportunities",
 }
@@ -246,6 +244,7 @@ export const navItems: NavItem[] = [
   { label: "Home", sectionId: "hero" },
   { label: "Projects", sectionId: "projects" },
   { label: "About", sectionId: "about" },
+  { label: "Experience", sectionId: "experience" },
   { label: "Playground", sectionId: "playground" },
   { label: "Contact", sectionId: "contact" },
 ]
