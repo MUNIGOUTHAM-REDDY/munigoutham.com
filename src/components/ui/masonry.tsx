@@ -217,9 +217,17 @@ export default function Masonry({
         <div
           key={item.id}
           data-masonry-key={item.id}
-          className="absolute box-content"
+          role={item.onClick ? 'button' : undefined}
+          tabIndex={item.onClick ? 0 : undefined}
+          className={`absolute box-content${item.onClick ? ' cursor-pointer' : ''}`}
           style={{ willChange: 'transform, width, height, opacity' }}
           onClick={item.onClick}
+          onKeyDown={item.onClick ? (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              item.onClick?.()
+            }
+          } : undefined}
           onMouseEnter={e => handleMouseEnter(item.id, e.currentTarget)}
           onMouseLeave={e => handleMouseLeave(item.id, e.currentTarget)}
         >

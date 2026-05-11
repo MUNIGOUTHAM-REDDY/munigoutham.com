@@ -91,19 +91,28 @@ const DESKTOP_NAV: ReadonlyArray<{ id: string; label: string; Icon: (p: NavIconP
 ]
 
 function DesktopNav() {
-  const [active, setActive] = useState<string>('hero')
+  const [active, setActive] = useState<string | null>(null)
 
   useEffect(() => {
     const els = DESKTOP_NAV
       .map(n => document.getElementById(n.id))
       .filter((e): e is HTMLElement => Boolean(e))
     if (!els.length) return
+    const ratios = new Map<string, number>()
     const obs = new IntersectionObserver(
       entries => {
-        const visible = entries
-          .filter(e => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-        if (visible.length) setActive(visible[0].target.id)
+        for (const e of entries) {
+          ratios.set(e.target.id, e.isIntersecting ? e.intersectionRatio : 0)
+        }
+        let topId: string | null = null
+        let topRatio = 0
+        for (const [id, r] of ratios) {
+          if (r > topRatio) {
+            topRatio = r
+            topId = id
+          }
+        }
+        setActive(topRatio > 0 ? topId : null)
       },
       { rootMargin: '-40% 0px -50% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] },
     )

@@ -36,7 +36,7 @@ function scrollToSection(sectionId: string) {
 export default function ScrollHeader({ alwaysVisible = false, showBackArrow = false }: { alwaysVisible?: boolean; showBackArrow?: boolean }) {
   const [visible, setVisible] = useState(alwaysVisible)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState<string>(navItems[0]?.label ?? '')
+  const [activeSection, setActiveSection] = useState<string | null>(null)
 
   useEffect(() => {
     if (alwaysVisible) return
@@ -54,15 +54,25 @@ export default function ScrollHeader({ alwaysVisible = false, showBackArrow = fa
       .filter((s): s is { label: string; el: HTMLElement } => Boolean(s.el))
     if (sections.length === 0) return
 
+    const ratios = new Map<string, number>()
     const observer = new IntersectionObserver(
       (entries) => {
-        const visibleEntries = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-        if (visibleEntries.length > 0) {
-          const id = visibleEntries[0].target.id
-          const match = navItems.find((n) => n.sectionId === id)
-          if (match) setActiveSection(match.label)
+        for (const e of entries) {
+          ratios.set(e.target.id, e.isIntersecting ? e.intersectionRatio : 0)
+        }
+        let topId: string | null = null
+        let topRatio = 0
+        for (const [id, r] of ratios) {
+          if (r > topRatio) {
+            topRatio = r
+            topId = id
+          }
+        }
+        if (topRatio > 0 && topId) {
+          const match = navItems.find((n) => n.sectionId === topId)
+          setActiveSection(match ? match.label : null)
+        } else {
+          setActiveSection(null)
         }
       },
       { rootMargin: '-40% 0px -50% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] },
@@ -99,16 +109,18 @@ export default function ScrollHeader({ alwaysVisible = false, showBackArrow = fa
                 </Link>
               ) : (
                 <AnimatePresence mode="wait" initial={false}>
-                  <motion.span
-                    key={activeSection}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.2 }}
-                    className="font-['Montserrat',sans-serif] font-bold text-white text-lg tracking-tight"
-                  >
-                    {activeSection}
-                  </motion.span>
+                  {activeSection && (
+                    <motion.span
+                      key={activeSection}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.2 }}
+                      className="font-['Montserrat',sans-serif] font-bold text-white text-lg tracking-tight"
+                    >
+                      {activeSection}
+                    </motion.span>
+                  )}
                 </AnimatePresence>
               )}
               <button
