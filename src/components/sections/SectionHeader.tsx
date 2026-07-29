@@ -1,45 +1,87 @@
 import { motion } from 'motion/react'
 
-function StarIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M11.9445 11.9449V11.884L20.903 19.8064L12.7977 10.9698L20.7201 2.01139L11.9445 10.0557L11.8226 9.99477L20.5983 0.122197L10.8476 9.0197L1.03593 0.244081L9.93344 9.99477L9.8725 10.0557L1.09687 2.19422L9.08025 10.9089L1.09687 19.9892L9.93344 11.823L9.99438 11.9449L1.15782 21.8784L10.9694 12.859L20.9639 21.7565L11.9445 11.9449Z"
-        fill="#87C23B"
-      />
-    </svg>
-  )
-}
-
 interface SectionHeaderProps {
   title: string
+  /** Small label above the title. Falls back to the title if omitted. */
+  eyebrow?: string
   subtitle?: string
   action?: React.ReactNode
 }
 
-export default function SectionHeader({ title, subtitle, action }: SectionHeaderProps) {
+/**
+ * The marker that says "a new part of the night starts here".
+ *
+ * The old version stamped a green star and a bold sans title six times with
+ * an identical blur-in — which is exactly what made the page feel generated.
+ * This one arrives as light does: the rule draws out from the left, the
+ * label warms up, then the title lifts. Same curve as everything else, but
+ * a choreography of its own so the eye registers a beat rather than a
+ * repeat.
+ */
+export default function SectionHeader({ title, eyebrow, subtitle, action }: SectionHeaderProps) {
   return (
-    <motion.div
-      className="mb-12 md:mb-16"
-      initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+    <motion.header
+      className="mb-14 md:mb-20"
+      initial="rest"
+      whileInView="lit"
+      viewport={{ once: true, margin: '-90px' }}
+      transition={{ staggerChildren: 0.09 }}
     >
-      <div className="flex items-center justify-between gap-3 mb-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <StarIcon className="w-5 h-5 shrink-0" />
-          <h2 className="font-['Montserrat',sans-serif] font-bold text-3xl md:text-4xl lg:text-5xl text-white">
+      <div className="flex items-end justify-between gap-6">
+        <div className="min-w-0">
+          {/* Eyebrow: a lit point on a line, then the label. */}
+          <motion.div
+            className="flex items-center gap-3"
+            variants={{
+              rest: { opacity: 0 },
+              lit: { opacity: 1, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+            }}
+          >
+            <span
+              className="h-1 w-1 shrink-0 rounded-full bg-lantern"
+              style={{ boxShadow: '0 0 8px 1px rgba(242,217,153,0.7)' }}
+            />
+            <motion.span
+              className="h-px w-8 origin-left shrink-0"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(242,217,153,0.6), rgba(230,237,246,0))',
+              }}
+              variants={{
+                rest: { scaleX: 0 },
+                lit: { scaleX: 1, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } },
+              }}
+            />
+            <span className="font-sans text-[10px] uppercase tracking-[0.28em] text-star/45">
+              {eyebrow ?? title}
+            </span>
+          </motion.div>
+
+          <motion.h2
+            className="mt-4 font-display text-display-sm font-light leading-[1.02] text-star"
+            variants={{
+              rest: { opacity: 0, y: 14 },
+              lit: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } },
+            }}
+          >
             {title}
-          </h2>
+          </motion.h2>
+
+          {subtitle && (
+            <motion.p
+              className="mt-3 max-w-xl font-sans text-sm leading-relaxed text-star/45"
+              variants={{
+                rest: { opacity: 0, y: 10 },
+                lit: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } },
+              }}
+            >
+              {subtitle}
+            </motion.p>
+          )}
         </div>
-        {action && <div className="flex-shrink-0">{action}</div>}
+
+        {action && <div className="shrink-0 pb-1">{action}</div>}
       </div>
-      {subtitle && (
-        <p className="font-['Cormorant_Garamond',serif] text-lg md:text-xl text-white/50 ml-8">
-          {subtitle}
-        </p>
-      )}
-    </motion.div>
+    </motion.header>
   )
 }

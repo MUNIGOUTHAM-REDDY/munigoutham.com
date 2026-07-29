@@ -2,25 +2,32 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { faqItems } from '../../data/portfolio'
 
-function ChevronIcon({ open }: { open: boolean }) {
+/**
+ * The heading block used to sit on a 64px technical grid with a radial mask —
+ * a dashboard texture imported wholesale from a different design language.
+ * It's night here, so the heading sits in haze instead.
+ */
+
+function Marker({ open }: { open: boolean }) {
   return (
-    <motion.svg
-      width="22"
-      height="22"
-      viewBox="0 0 20 20"
-      fill="none"
-      className="shrink-0 text-white/60"
-      animate={{ rotate: open ? 180 : 0 }}
-      transition={{ duration: 0.3 }}
-    >
-      <path
-        d="M5 7.5L10 12.5L15 7.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+    <span className="relative mt-2 flex h-3 w-3 shrink-0 items-center justify-center">
+      <motion.span
+        className="absolute h-px w-3 rounded-full"
+        animate={{
+          backgroundColor: open ? 'rgb(242 217 153)' : 'rgba(230,237,246,0.4)',
+        }}
+        transition={{ duration: 0.4 }}
       />
-    </motion.svg>
+      <motion.span
+        className="absolute h-3 w-px rounded-full"
+        animate={{
+          rotate: open ? 90 : 0,
+          opacity: open ? 0 : 1,
+          backgroundColor: open ? 'rgb(242 217 153)' : 'rgba(230,237,246,0.4)',
+        }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      />
+    </span>
   )
 }
 
@@ -34,75 +41,81 @@ function FAQAccordionItem({
   const [open, setOpen] = useState(defaultOpen)
 
   return (
-    <div className="border-b border-white/10">
+    <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between gap-6 py-7 md:py-8 text-left group"
+        aria-expanded={open}
+        className="group flex w-full items-start gap-5 py-7 text-left md:py-8"
       >
-        <span className="font-['Montserrat',sans-serif] font-medium text-xl md:text-2xl text-white tracking-tight">
+        <Marker open={open} />
+        <span
+          className={`flex-1 font-display text-xl leading-snug transition-colors duration-500 md:text-2xl ${
+            open ? 'text-lantern-core' : 'text-star group-hover:text-star/80'
+          }`}
+        >
           {item.question}
         </span>
-        <ChevronIcon open={open} />
       </button>
+
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
-            initial={{ height: 0, opacity: 0, filter: 'blur(4px)' }}
-            animate={{ height: 'auto', opacity: 1, filter: 'blur(0px)' }}
-            exit={{ height: 0, opacity: 0, filter: 'blur(4px)' }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <p className="text-white/55 text-base md:text-lg leading-relaxed pb-7 md:pb-8 md:max-w-3xl">
+            <p className="max-w-2xl pb-8 pl-8 font-sans text-[15px] leading-relaxed text-star/55">
               {item.answer}
             </p>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <div className="hairline" />
     </div>
   )
 }
 
 export default function FAQ() {
   return (
-    <section id="faq" className="px-6 md:px-12 py-20 md:py-28 max-w-5xl mx-auto">
-      <motion.div
-        className="relative isolate text-center mb-16 md:mb-24 py-16 md:py-24"
-        initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_60%_70%_at_50%_50%,#000_30%,transparent_75%)]"
-          style={{
-            backgroundImage:
-              'linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)',
-            backgroundSize: '64px 64px',
-          }}
-        />
+    <section id="faq" className="relative">
+      <div
+        aria-hidden
+        className="bloom"
+        style={{ top: '2%', left: '50%', width: 760, height: 620, transform: 'translateX(-50%)' }}
+      />
 
-        <h2 className="font-['Montserrat',sans-serif] font-bold text-4xl md:text-6xl lg:text-7xl text-white tracking-tight leading-[1.05]">
-          Before You Ask
-          <br />
-          Here&rsquo;s Everything.
-        </h2>
-        <p className="font-['Montserrat',sans-serif] mt-5 md:mt-6 text-lg md:text-xl text-white/45">
-          Quick, honest, to the point.
-        </p>
-      </motion.div>
+      <div className="relative mx-auto w-full max-w-4xl px-6 py-24 md:px-12 md:py-32">
+        <motion.div
+          className="mb-16 text-center md:mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <h2 className="font-display text-display font-light leading-[1.02] text-star">
+            Before You Ask
+            <br />
+            <span className="italic text-star/70">Here&rsquo;s Everything.</span>
+          </h2>
+          <p className="mt-6 font-sans text-[11px] uppercase tracking-[0.28em] text-star/40">
+            Quick, honest, to the point
+          </p>
+        </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {faqItems.map((item, index) => (
-          <FAQAccordionItem key={item.id} item={item} defaultOpen={index === 0} />
-        ))}
-      </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 1, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {faqItems.map((item, index) => (
+            <FAQAccordionItem key={item.id} item={item} defaultOpen={index === 0} />
+          ))}
+        </motion.div>
+      </div>
     </section>
   )
 }

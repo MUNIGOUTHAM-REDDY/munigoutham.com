@@ -9,7 +9,8 @@ import Playground from './components/sections/Playground'
 import FAQ from './components/sections/FAQ'
 import Contact from './components/sections/Contact'
 import Footer from './components/sections/Footer'
-import { SmoothCursor } from './components/ui/smooth-cursor'
+import Sky from './components/world/Sky'
+import LanternRail from './components/world/LanternRail'
 import SEO from './components/SEO'
 import { HOME_SEO } from './data/seo'
 import CaseStudyMindsnack from './pages/CaseStudyMindsnack'
@@ -31,16 +32,21 @@ function HomePage() {
   return (
     <>
       <SEO {...HOME_SEO} />
-      <SmoothCursor />
       <ScrollHeader />
-      <main className="relative z-10 bg-[#010101]">
-        <Hero />
-        <Projects />
-        <About />
-        <Experience />
-        <Playground />
-        <FAQ />
-        <Contact />
+      <LanternRail />
+      {/* main stays opaque and above the footer so the footer's
+          scroll-reveal still works; Sky supplies that opacity now. */}
+      <main className="relative z-10">
+        <Sky />
+        <div className="relative z-10">
+          <Hero />
+          <Projects />
+          <About />
+          <Experience />
+          <Playground />
+          <FAQ />
+          <Contact />
+        </div>
       </main>
       <Footer />
     </>

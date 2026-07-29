@@ -19,7 +19,7 @@ export default function NotFound() {
           : 'Unknown error'
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#06040d] text-white">
+    <main className="relative min-h-screen overflow-hidden bg-night text-star">
       <SEO
         title={`${title} · Muni Goutham`}
         description="The page you tried to reach does not exist."
@@ -49,9 +49,9 @@ export default function NotFound() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/55 backdrop-blur"
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-star/10 bg-star/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-star/55 backdrop-blur"
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-[#87C23B]" />
+          <span className="h-1.5 w-1.5 rounded-full bg-leaf" />
           Error · {status}
         </motion.span>
 
@@ -59,7 +59,7 @@ export default function NotFound() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-          className="font-['Montserrat',sans-serif] text-5xl font-bold tracking-tight md:text-7xl"
+          className="font-display text-5xl font-bold tracking-tight md:text-7xl"
         >
           {title}.
         </motion.h1>
@@ -68,7 +68,7 @@ export default function NotFound() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-5 max-w-xl text-base text-white/55 md:text-lg"
+          className="mt-5 max-w-xl text-base text-star/55 md:text-lg"
         >
           You took an interesting detour. The link may be old, mistyped, or part of an experiment that didn&apos;t ship.
         </motion.p>
@@ -77,7 +77,7 @@ export default function NotFound() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-6 inline-block rounded-md border border-white/10 bg-white/[0.03] px-3 py-1.5 font-mono text-xs text-white/55"
+          className="mt-6 inline-block rounded-md border border-star/10 bg-star/[0.03] px-3 py-1.5 font-mono text-xs text-star/55"
         >
           {detail}
         </motion.code>
@@ -97,7 +97,7 @@ export default function NotFound() {
           </Link>
           <Link
             to="/#playground"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-white/80 backdrop-blur transition-colors hover:border-white/30 hover:text-white"
+            className="inline-flex items-center gap-2 rounded-full border border-star/15 bg-star/[0.04] px-5 py-2.5 text-sm font-semibold text-star/80 backdrop-blur transition-colors hover:border-star/30 hover:text-star"
           >
             See the playground
           </Link>

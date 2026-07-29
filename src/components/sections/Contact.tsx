@@ -32,9 +32,9 @@ function Field({ id, label, type = 'text', value, onChange, onBlur, error, requi
   return (
     <div>
       <div className="flex items-baseline justify-between">
-        <label htmlFor={id} className="text-sm md:text-base font-medium text-white/80">
+        <label htmlFor={id} className="text-sm md:text-base font-medium text-star/80">
           {label}
-          {required && <span className="ml-0.5 text-white/30">*</span>}
+          {required && <span className="ml-0.5 text-star/30">*</span>}
         </label>
         <AnimatePresence>
           {error && (
@@ -60,8 +60,8 @@ function Field({ id, label, type = 'text', value, onChange, onBlur, error, requi
         onChange={e => onChange(e.target.value)}
         onBlur={onBlur}
         aria-invalid={Boolean(error)}
-        className={`mt-3 w-full bg-transparent border-b py-3 text-base md:text-lg text-white placeholder-white/25 focus:outline-none transition-colors duration-200 ${
-          error ? 'border-red-400/70 focus:border-red-400' : 'border-white/12 focus:border-white/55'
+        className={`mt-3 w-full bg-transparent border-b py-3 text-base md:text-lg text-star placeholder-star/25 focus:outline-none transition-colors duration-200 ${
+          error ? 'border-red-400/70 focus:border-red-400' : 'border-star/12 focus:border-lantern/60'
         }`}
       />
     </div>
@@ -89,9 +89,9 @@ function Textarea({ id, label, value, onChange, required, placeholder }: Textare
 
   return (
     <div>
-      <label htmlFor={id} className="text-sm md:text-base font-medium text-white/80">
+      <label htmlFor={id} className="text-sm md:text-base font-medium text-star/80">
         {label}
-        {required && <span className="ml-0.5 text-white/30">*</span>}
+        {required && <span className="ml-0.5 text-star/30">*</span>}
       </label>
       <textarea
         id={id}
@@ -101,7 +101,7 @@ function Textarea({ id, label, value, onChange, required, placeholder }: Textare
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        className="mt-3 w-full resize-none overflow-hidden bg-transparent border-b border-white/12 py-3 text-base md:text-lg text-white placeholder-white/25 focus:border-white/55 focus:outline-none transition-colors duration-200"
+        className="mt-3 w-full resize-none overflow-hidden bg-transparent border-b border-star/12 py-3 text-base md:text-lg text-star placeholder-star/25 focus:border-lantern/60 focus:outline-none transition-colors duration-200"
       />
     </div>
   )
@@ -130,7 +130,7 @@ function CopyButton({ text }: { text: string }) {
           /* ignore */
         }
       }}
-      className="text-[12px] text-white/40 hover:text-white/80 transition-colors underline-offset-4 hover:underline"
+      className="text-[12px] text-star/40 hover:text-star/80 transition-colors underline-offset-4 hover:underline"
     >
       {copied ? 'Copied' : 'Copy'}
     </button>
@@ -185,7 +185,13 @@ export default function Contact() {
   }, [status])
 
   return (
-    <section id="contact" className="px-6 md:px-12 py-20 md:py-24 max-w-6xl mx-auto min-h-screen flex flex-col justify-center scroll-mt-24">
+    <section id="contact" className="relative scroll-mt-24">
+      <div
+        aria-hidden
+        className="bloom"
+        style={{ bottom: '6%', right: '4%', width: 640, height: 640 }}
+      />
+      <div className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 py-20 md:px-12 md:py-24">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 lg:gap-x-[105px] gap-y-14">
         {/* Left rail: headline + side channels */}
         <motion.div
@@ -195,7 +201,7 @@ export default function Contact() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="inline-flex items-center gap-2 text-[12px] text-white/55">
+          <div className="inline-flex items-center gap-2 text-[12px] text-star/55">
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-70" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
@@ -203,21 +209,21 @@ export default function Contact() {
             {contactInfo.availability}
           </div>
 
-          <h2 className="mt-6 font-['Montserrat',sans-serif] font-bold text-3xl md:text-4xl lg:text-5xl tracking-tight text-white">
-            Let's talk.
+          <h2 className="mt-6 font-display text-display-sm font-light leading-[1.02] text-star">
+            Let&rsquo;s talk.
           </h2>
-          <p className="mt-4 max-w-md text-sm md:text-base leading-relaxed text-white/55">
+          <p className="mt-4 max-w-md font-sans text-[15px] leading-relaxed text-star/55">
             Tell me about the role, the team, or what you're trying to build. I usually reply within 12 hours.
           </p>
 
           <div className="mt-8 flex items-center gap-3 text-sm">
             <a
               href={`mailto:${contactInfo.email}`}
-              className="text-white/85 hover:text-white transition-colors"
+              className="text-star/85 hover:text-star transition-colors"
             >
               {contactInfo.email}
             </a>
-            <span className="text-white/15">·</span>
+            <span className="text-star/15">·</span>
             <CopyButton text={contactInfo.email} />
           </div>
         </motion.div>
@@ -255,19 +261,19 @@ export default function Contact() {
                     />
                   </motion.svg>
                 </motion.div>
-                <h3 className="font-['Montserrat',sans-serif] font-bold text-2xl text-white tracking-tight">Message on its way.</h3>
-                <p className="mt-2 text-white/55 text-[15px]">Check your inbox for a confirmation. I usually reply within 12 hours.</p>
+                <h3 className="font-display text-3xl font-normal text-star">Message on its way.</h3>
+                <p className="mt-3 font-sans text-[15px] text-star/55">Check your inbox for a confirmation. I usually reply within 12 hours.</p>
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <button
                     ref={successRef}
                     onClick={() => setStatus('idle')}
-                    className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-black transition-transform duration-300 hover:-translate-y-0.5"
+                    className="inline-flex items-center gap-2 rounded-full bg-lantern-core px-6 py-2.5 font-sans text-[13px] font-medium text-void transition-all duration-500 hover:-translate-y-0.5 hover:shadow-[0_0_30px_-4px_rgba(242,217,153,0.5)]"
                   >
                     Send another
                   </button>
                   <a
                     href={`mailto:${contactInfo.email}`}
-                    className="text-[13px] text-white/55 hover:text-white transition-colors"
+                    className="text-[13px] text-star/55 hover:text-star transition-colors"
                   >
                     Email directly
                   </a>
@@ -284,7 +290,7 @@ export default function Contact() {
                 noValidate
               >
                 <div>
-                  <span id={`${formId}-inquiry`} className="block text-sm md:text-base font-medium text-white/80 mb-4">
+                  <span id={`${formId}-inquiry`} className="block text-sm md:text-base font-medium text-star/80 mb-4">
                     What's this about?
                   </span>
                   <div role="radiogroup" aria-labelledby={`${formId}-inquiry`} className="flex flex-wrap gap-2.5">
@@ -297,10 +303,10 @@ export default function Contact() {
                           role="radio"
                           aria-checked={active}
                           onClick={() => setInquiry(opt.key)}
-                          className={`rounded-full px-5 py-2 text-sm font-medium transition-colors duration-200 ${
+                          className={`rounded-full px-5 py-2 font-sans text-[13px] transition-all duration-400 ${
                             active
-                              ? 'bg-white text-black'
-                              : 'border border-white/12 text-white/65 hover:border-white/30 hover:text-white'
+                              ? 'bg-lantern text-void shadow-[0_0_20px_-6px_rgba(242,217,153,0.6)]'
+                              : 'border border-star/12 text-star/60 hover:border-lantern/35 hover:text-star'
                           }`}
                         >
                           {opt.label}
@@ -363,11 +369,13 @@ export default function Contact() {
                 </div>
 
                 <div className="flex items-center justify-end pt-2">
+                  {/* The single brightest thing on the page is the lantern,
+                      and this is it — not a flat white pill. */}
                   <motion.button
                     type="submit"
                     disabled={status === 'sending'}
                     whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition-transform duration-300 hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-lantern-core px-7 py-3 font-sans text-[13px] font-medium text-void transition-all duration-500 hover:-translate-y-0.5 hover:shadow-[0_0_34px_-4px_rgba(242,217,153,0.55)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
                   >
                     {status === 'sending' ? (
                       <>
@@ -383,6 +391,7 @@ export default function Contact() {
             )}
           </AnimatePresence>
         </motion.div>
+        </div>
       </div>
     </section>
   )

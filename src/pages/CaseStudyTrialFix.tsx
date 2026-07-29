@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { BackButton, Fade, PhoneMockup, Label, AccentDivider, SectionH, Body, Section, StatCard, MetaRow, CaseStudyFooter } from '../components/case-study/CaseStudyComponents'
+import { BackButton, Fade, PhoneMockup, Label, AccentDivider, SectionH, Body, Section, StatCard, MetaRow, CaseStudyFooter, CaseStudyShell } from '../components/case-study/CaseStudyComponents'
 import SEO from '../components/SEO'
 import { CASE_STUDY_SEO } from '../data/seo'
 
@@ -15,7 +15,7 @@ export default function CaseStudyTrialFix() {
   useEffect(() => { window.scrollTo(0, 0) }, [])
 
   return (
-    <div className="min-h-screen bg-surface text-white">
+    <CaseStudyShell>
       <SEO {...CASE_STUDY_SEO['trial-cancellation-fix']} />
       <BackButton />
 
@@ -23,8 +23,8 @@ export default function CaseStudyTrialFix() {
       <section className="min-h-screen flex flex-col lg:flex-row items-center gap-8 lg:gap-[5vw] px-6 md:px-[6vw] pt-24 pb-16 md:pt-28 md:pb-20">
         <div className="flex-1">
                     <Fade delay={0.08}>
-            <h1 className="font-['Montserrat',sans-serif] font-bold text-[clamp(32px,5vw,64px)] leading-[1.08] max-w-[650px] mb-6">
-              How <span className="text-accent font-['Cormorant_Garamond',serif] font-medium italic">one screen</span> cut trial cancellations by 10%
+            <h1 className="font-display font-normal text-[clamp(32px,5vw,64px)] leading-[1.08] max-w-[650px] mb-6">
+              How <span className="text-accent font-display font-normal italic">one screen</span> cut trial cancellations by 10%
             </h1>
           </Fade>
           <Fade delay={0.15}>
@@ -40,16 +40,16 @@ export default function CaseStudyTrialFix() {
       </section>
 
       {/* PROJECT CONTEXT */}
-      <Section className="bg-card border-b border-white/[0.06]">
+      <Section className="bg-card border-b border-star/[0.06]">
         <Fade>
           <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start max-w-[720px]">
             <PhoneMockup src={I.appHome} width={90} radius={12} />
             <div>
-              <p className="font-['Montserrat',sans-serif] text-[10px] tracking-[0.15em] uppercase text-white/30 mb-1.5">About the project</p>
-              <p className="text-sm leading-relaxed text-white/50 mb-3">
+              <p className="font-sans text-[10px] tracking-[0.15em] uppercase text-star/30 mb-1.5">About the project</p>
+              <p className="text-sm leading-relaxed text-star/50 mb-3">
                 Mindsnack is an iOS learning app that teaches life skills like relationships, confidence, mental health, and finance through research backed micro lessons. I was the solo UI/UX designer, responsible for the entire product from onboarding to the App Store presence. This case study focuses on one specific UX problem I solved during my time on the project.
               </p>
-              <Link to="/case-study/mindsnack" className="font-['Montserrat',sans-serif] text-[11px] text-accent hover:text-accent/80 transition-colors">Read the full Mindsnack case study &rarr;</Link>
+              <Link to="/case-study/mindsnack" className="font-sans text-[11px] text-accent hover:text-accent/80 transition-colors">Read the full Mindsnack case study &rarr;</Link>
             </div>
           </div>
         </Fade>
@@ -83,9 +83,9 @@ export default function CaseStudyTrialFix() {
         <Fade delay={0.18}>
           <div className="flex gap-4 md:gap-6 justify-start overflow-x-auto pb-4 -mx-6 px-6 md:mx-0 md:px-0 md:justify-center md:flex-wrap items-center">
             <PhoneMockup src={I.paywall} caption="Paywall" width={160} />
-            <span className="text-xl text-white/20 font-['Montserrat',sans-serif] shrink-0">&rarr;</span>
+            <span className="text-xl text-star/20 font-sans shrink-0">&rarr;</span>
             <PhoneMockup src={I.trialReminder} caption="The fix" width={200} glow />
-            <span className="text-xl text-white/20 font-['Montserrat',sans-serif] shrink-0">&rarr;</span>
+            <span className="text-xl text-star/20 font-sans shrink-0">&rarr;</span>
             <PhoneMockup src={I.continues} caption="Continues" width={160} />
           </div>
         </Fade>
@@ -102,9 +102,9 @@ export default function CaseStudyTrialFix() {
             ["Both buttons are safe","'Remind Me' and 'Maybe Later' both feel okay. No guilt. No pressure. The user stays in control."],
           ].map(([t,d],i) => (
             <Fade key={i} delay={0.06*i}>
-              <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 md:p-6">
-                <h4 className="font-['Cormorant_Garamond',serif] text-lg text-white mb-2">{t}</h4>
-                <p className="text-xs leading-relaxed text-white/35">{d}</p>
+              <div className="bg-star/[0.03] border border-star/[0.06] rounded-xl p-5 md:p-6">
+                <h4 className="font-display text-lg text-star mb-2">{t}</h4>
+                <p className="text-xs leading-relaxed text-star/35">{d}</p>
               </div>
             </Fade>
           ))}
@@ -116,7 +116,7 @@ export default function CaseStudyTrialFix() {
         <Fade><Label>Results</Label><AccentDivider /></Fade>
         <div className="grid grid-cols-2 gap-4 max-w-[520px]">
           <Fade delay={0.06}><StatCard value="10%" label="Fewer trial cancellations" sub="Reduction" color="#10b981" /></Fade>
-          <Fade delay={0.12}><StatCard value="19%" label="Activated the trial" sub="Of onboarded users" color="#87C23B" /></Fade>
+          <Fade delay={0.12}><StatCard value="19%" label="Activated the trial" sub="Of onboarded users" color="var(--color-leaf)" /></Fade>
         </div>
       </Section>
 
@@ -132,6 +132,6 @@ export default function CaseStudyTrialFix() {
         { label: "Mindsnack: Full Story", to: "/case-study/mindsnack" },
         { label: "Cards to Articles Pivot", to: "/case-study/cards-to-articles" },
       ]} />
-    </div>
+    </CaseStudyShell>
   )
 }

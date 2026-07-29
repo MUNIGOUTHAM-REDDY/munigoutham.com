@@ -7,12 +7,15 @@
 }
 
 /* ===== Background Image ===== */
+/* The painting now dissolves into the real starfield rendered behind it
+   rather than into flat black, so the fade starts earlier and runs longer —
+   you cannot tell where the illustration stops and the site begins. */
 .hero__background {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 58%, rgba(0, 0, 0, 0.55) 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 58%, rgba(0, 0, 0, 0.55) 82%, transparent 100%);
 }
 
 .hero__bg-img--mobile {
@@ -94,12 +97,15 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 100px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 500;
-  font-size: 16px;
-  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-star);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .hero__topbar-star {
@@ -132,12 +138,13 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 32px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 500;
-  font-size: 20px;
-  color: #ffffff;
-  letter-spacing: 0.005em;
+  gap: 30px;
+  font-family: var(--font-sans);
+  font-weight: 450;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-star);
   white-space: nowrap;
 }
 
@@ -145,27 +152,28 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(230, 237, 246, 0.62);
   text-decoration: none;
-  transition: color 0.25s ease;
+  /* Weight is not animated — the label would reflow mid-transition.
+     Colour and the icon carry the state change instead. */
+  transition: color 0.4s var(--ease-lantern);
 }
 
 .hero__desknav-link:hover {
-  color: #87C23B;
-  font-weight: 700;
+  color: var(--color-lantern);
 }
 
 .hero__desknav-link--active {
-  color: #87C23B;
-  font-weight: 700;
+  color: var(--color-leaf);
 }
 
 .hero__desknav-icon {
-  width: 22px;
-  height: 22px;
+  width: 15px;
+  height: 15px;
   display: block;
   flex-shrink: 0;
-  color: #87C23B;
+  color: var(--color-leaf);
+  filter: drop-shadow(0 0 6px rgba(135, 194, 59, 0.5));
 }
 
 /* ===== Content ===== */
@@ -176,33 +184,39 @@
   z-index: 5;
 }
 
+/* Big elegant serif against small wide-tracked sans. The name is the only
+   romantic thing on the page; everything factual is set in Geist. */
 .hero__name {
   display: flex;
   flex-direction: column;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 48px;
-  line-height: 1.05;
-  color: #ffffff;
-  letter-spacing: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3.5rem, 13vw, 5rem);
+  line-height: 0.94;
+  color: var(--color-star);
+  letter-spacing: -0.02em;
   margin: 0;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.55);
 }
 
 .hero__subtitle {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 20px;
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 500;
-  font-size: 24px;
-  color: #ffffff;
+  gap: 10px;
+  margin-top: 22px;
+  font-family: var(--font-sans);
+  font-weight: 450;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(230, 237, 246, 0.75);
   white-space: nowrap;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
 }
 
 .hero__star {
-  width: 22px;
-  height: 22px;
+  width: 13px;
+  height: 13px;
   flex-shrink: 0;
 }
 
@@ -224,39 +238,63 @@
   z-index: 10;
 }
 
-.hero__bottomnav-starborder {
-  border-radius: 24px;
+/* Replaces the old StarBorder chase-light. A single lantern-warm top edge
+   and a soft ambient lift reads as an object sitting in the scene rather
+   than a component with an animated gradient running around it. */
+.hero__bottomnav-shell {
+  border-radius: 22px;
+  padding: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(242, 217, 153, 0.28) 0%,
+    rgba(230, 237, 246, 0.06) 38%,
+    rgba(230, 237, 246, 0.03) 100%
+  );
+  box-shadow:
+    0 18px 44px -16px rgba(0, 0, 0, 0.9),
+    0 0 34px -10px rgba(242, 217, 153, 0.16);
 }
 
 .hero__bottomnav-inner {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 17px;
-  background: #040307;
-  border-radius: 24px;
+  gap: 4px;
+  padding: 7px 8px;
+  background: rgba(8, 7, 15, 0.86);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  border-radius: 21px;
 }
 
 .hero__bottomnav-item {
-  width: 51px;
-  height: 53px;
+  width: 46px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #111;
-  border: 1.2px solid #151515;
-  border-radius: 10px;
+  background: transparent;
+  border: 0;
+  border-radius: 14px;
+  color: rgba(230, 237, 246, 0.45);
+  transition:
+    color 0.4s var(--ease-lantern),
+    background 0.4s var(--ease-lantern);
 }
 
 .hero__bottomnav-item--active {
-  border-bottom-color: #87C23B;
-  box-shadow: 0 4px 8px -2px rgba(135, 194, 59, 0.3);
+  color: var(--color-leaf);
+  background: rgba(135, 194, 59, 0.1);
+  box-shadow: inset 0 1px 0 rgba(169, 212, 92, 0.22);
 }
 
-.hero__bottomnav-item img {
-  width: 29px;
-  height: 29px;
-  object-fit: contain;
+.hero__bottomnav-icon {
+  width: 19px;
+  height: 19px;
+  display: block;
+}
+
+.hero__bottomnav-item--active .hero__bottomnav-icon {
+  filter: drop-shadow(0 0 7px rgba(135, 194, 59, 0.55));
 }
 
 /* ===== Tablet (768px+) ===== */
@@ -279,19 +317,17 @@
 
   .hero__topbar { top: 30px; }
   .hero__topbar-blur { display: none; }
-  .hero__topbar-inner { gap: 30px; padding: 14px 32px; font-size: 24px; }
-  .hero__topbar-star { width: 54px; height: 54px; }
+  .hero__topbar-inner { gap: 24px; padding: 12px 28px; font-size: 13px; }
+  .hero__topbar-star { width: 30px; height: 30px; }
 
   .hero__content { left: 48px; bottom: 25%; }
-  .hero__name { font-size: 73px; }
-  .hero__subtitle { gap: 13px; margin-top: 28px; font-size: 39px; }
-  .hero__star { width: 36px; height: 36px; }
+  .hero__subtitle { gap: 14px; margin-top: 26px; font-size: 12px; }
+  .hero__star { width: 15px; height: 15px; }
 
-  .hero__bottomnav-starborder { border-radius: 30px; }
-  .hero__bottomnav-inner { gap: 15px; padding: 15px 21px; border-radius: 30px; box-shadow: 0 3px 45px 3px rgba(255,255,255,0.04); }
-  .hero__bottomnav-item { width: 63px; height: 66px; background: #060609; border-radius: 12px; border: 1.5px solid #151515; }
-  .hero__bottomnav-item--active { border-bottom-color: #87C23B; box-shadow: 0 4px 10px -2px rgba(135,194,59,0.3); }
-  .hero__bottomnav-item img { width: 36px; height: 36px; }
+  .hero__bottomnav-shell { border-radius: 26px; }
+  .hero__bottomnav-inner { gap: 6px; padding: 8px 10px; border-radius: 25px; }
+  .hero__bottomnav-item { width: 56px; height: 52px; border-radius: 17px; }
+  .hero__bottomnav-icon { width: 22px; height: 22px; }
 
   .hero__glow--1 { width: 200px; height: 200px; }
   .hero__glow--2 { width: 160px; height: 160px; }
@@ -305,8 +341,9 @@
   .hero__bottomnav { display: none; }
   .hero__desknav { display: block; }
 
-  .hero__content { left: 45px; bottom: auto; top: 54%; }
-  .hero__name { font-size: 73px; }
-  .hero__subtitle { gap: 13px; margin-top: 28px; font-size: 39px; }
-  .hero__star { width: 36px; height: 36px; }
+  /* Sits clear of the LanternRail running down the left margin. */
+  .hero__content { left: 84px; bottom: auto; top: 52%; }
+  .hero__name { font-size: clamp(5rem, 7.4vw, 8.5rem); }
+  .hero__subtitle { gap: 15px; margin-top: 30px; font-size: 12px; }
+  .hero__star { width: 15px; height: 15px; }
 }

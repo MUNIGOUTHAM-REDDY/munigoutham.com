@@ -18,11 +18,10 @@ function SocialIcon({ src, alt, invert }: { src: string; alt: string; invert?: b
     <img
       src={src}
       alt={alt}
-      width={44}
-      height={44}
+      width={36}
+      height={36}
       loading="lazy"
-      style={invert ? { filter: 'invert(1)' } : undefined}
-      className="w-[44px] h-[44px] object-contain opacity-70 hover:opacity-100 transition-opacity"
+      className={`h-9 w-9 object-contain ${invert ? 'social-mark--invert' : 'social-mark'}`}
     />
   )
 }

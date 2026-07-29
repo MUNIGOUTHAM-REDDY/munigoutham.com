@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Fade, PhoneMockup, Label, AccentDivider, SectionH, Body, Section, StatCard, InfoCard, MetaRow, CaseStudyFooter } from '../components/case-study/CaseStudyComponents'
+import { Fade, PhoneMockup, Label, AccentDivider, SectionH, Body, Section, StatCard, InfoCard, MetaRow, CaseStudyFooter, CaseStudyShell } from '../components/case-study/CaseStudyComponents'
 import ScrollHeader from '../components/ScrollHeader'
 import SEO from '../components/SEO'
 import { CASE_STUDY_SEO } from '../data/seo'
@@ -31,7 +31,7 @@ export default function CaseStudyMindsnack() {
   useEffect(() => { window.scrollTo(0, 0) }, [])
 
   return (
-    <div className="min-h-screen bg-surface text-white">
+    <CaseStudyShell>
       <SEO {...CASE_STUDY_SEO.mindsnack} />
       <ScrollHeader alwaysVisible showBackArrow />
 
@@ -40,7 +40,7 @@ export default function CaseStudyMindsnack() {
         <div className="flex-1">
           <Fade delay={0.08}>
             <img src="/images/cs1/mindsnack-logo.svg" alt="Mindsnack" className="h-12 md:h-14 rounded-xl mb-5" />
-            <h1 className="font-['Montserrat',sans-serif] font-bold text-[clamp(28px,4.5vw,52px)] text-white leading-[1.3] max-w-[700px] mb-6">A self-improvement app built from scratch</h1>
+            <h1 className="font-display font-normal text-[clamp(28px,4.5vw,52px)] text-star leading-[1.3] max-w-[700px] mb-6">A self-improvement app built from scratch</h1>
           </Fade>
           <Fade delay={0.15}>
             <Body style={{ marginBottom: 32 }}>From onboarding to lessons to the App Store presence, I owned every screen and interaction as the solo designer. iOS.</Body>
@@ -101,10 +101,10 @@ export default function CaseStudyMindsnack() {
             ["Quick Win","You act right now"]
           ].map(([nm,ds],i) => (
             <Fade key={i} delay={0.04*i}>
-              <div className="border-t border-white/10 pt-4">
-                <div className="font-['Montserrat',sans-serif] text-[10px] text-accent font-medium tracking-wider mb-2">{String(i+1).padStart(2,"0")}</div>
-                <div className="font-['Montserrat',sans-serif] font-semibold text-sm text-white mb-1">{nm}</div>
-                <div className="text-[11px] leading-relaxed text-white/50">{ds}</div>
+              <div className="border-t border-star/10 pt-4">
+                <div className="font-sans text-[10px] text-accent font-medium tracking-wider mb-2">{String(i+1).padStart(2,"0")}</div>
+                <div className="font-sans font-semibold text-sm text-star mb-1">{nm}</div>
+                <div className="text-[11px] leading-relaxed text-star/50">{ds}</div>
               </div>
             </Fade>
           ))}
@@ -163,11 +163,11 @@ export default function CaseStudyMindsnack() {
           ["V 2.0.0","The Format Pivot","Cards were too shallow. Shifted to article format. Moved from watchers to readers and listeners."],
         ].map(([tag,t,d],i) => (
           <Fade key={i} delay={0.06*i}>
-            <div className="grid grid-cols-[80px_1fr] md:grid-cols-[100px_1fr] gap-4 md:gap-8 py-5 border-b border-white/[0.05]">
-              <div className="font-['Montserrat',sans-serif] text-xs text-accent">{tag}</div>
+            <div className="grid grid-cols-[80px_1fr] md:grid-cols-[100px_1fr] gap-4 md:gap-8 py-5 border-b border-star/[0.05]">
+              <div className="font-sans text-xs text-accent">{tag}</div>
               <div>
-                <div className="font-['Cormorant_Garamond',serif] text-lg md:text-xl text-white mb-1">{t}</div>
-                <div className="text-sm leading-relaxed text-white/55 max-w-[480px]">{d}</div>
+                <div className="font-display text-lg md:text-xl text-star mb-1">{t}</div>
+                <div className="text-sm leading-relaxed text-star/55 max-w-[480px]">{d}</div>
               </div>
             </div>
           </Fade>
@@ -182,11 +182,11 @@ export default function CaseStudyMindsnack() {
         <Fade delay={0.18}>
           <div className="flex gap-10 md:gap-14 justify-center flex-wrap">
             <div className="text-center">
-              <p className="font-['Montserrat',sans-serif] text-[10px] tracking-[0.15em] text-white/20 uppercase mb-3">Before</p>
+              <p className="font-sans text-[10px] tracking-[0.15em] text-star/20 uppercase mb-3">Before</p>
               <PhoneMockup src={I.v1Home} width={200} />
             </div>
             <div className="text-center">
-              <p className="font-['Montserrat',sans-serif] text-[10px] tracking-[0.15em] text-white/20 uppercase mb-3">After</p>
+              <p className="font-sans text-[10px] tracking-[0.15em] text-star/20 uppercase mb-3">After</p>
               <PhoneMockup src={I.v2Home} width={200} />
             </div>
           </div>
@@ -197,7 +197,7 @@ export default function CaseStudyMindsnack() {
       <Section>
         <Fade><Label>Impact</Label><AccentDivider /></Fade>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <Fade delay={0}><StatCard value="31.9%" label="App Store conversion" sub="+320% lift" color="#87C23B" /></Fade>
+          <Fade delay={0}><StatCard value="31.9%" label="App Store conversion" sub="+320% lift" color="var(--color-leaf)" /></Fade>
           <Fade delay={0.06}><StatCard value="10%" label="Cancellation drop" sub="One screen" color="#10b981" /></Fade>
           <Fade delay={0.12}><StatCard value="19%" label="Trial activation" sub="From onboarding" color="#e67e23" /></Fade>
           <Fade delay={0.18}><StatCard value="3.14" label="Sessions/device" sub="Repeat usage" color="#2d7ff9" /></Fade>
@@ -215,9 +215,9 @@ export default function CaseStudyMindsnack() {
             ["AI accelerates, not replaces","Used AI to ship faster. But strategic decisions and complex interactions are still mine."],
           ].map(([t,d],i) => (
             <Fade key={i} delay={0.06*i}>
-              <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 md:p-6">
-                <h4 className="font-['Cormorant_Garamond',serif] text-lg text-white mb-2">{t}</h4>
-                <p className="text-xs leading-relaxed text-white/50">{d}</p>
+              <div className="bg-star/[0.03] border border-star/[0.06] rounded-xl p-5 md:p-6">
+                <h4 className="font-display text-lg text-star mb-2">{t}</h4>
+                <p className="text-xs leading-relaxed text-star/50">{d}</p>
               </div>
             </Fade>
           ))}
@@ -228,6 +228,6 @@ export default function CaseStudyMindsnack() {
         { label: "Trial Cancellation Fix", to: "/case-study/trial-cancellation-fix" },
         { label: "Cards to Articles Pivot", to: "/case-study/cards-to-articles" },
       ]} />
-    </div>
+    </CaseStudyShell>
   )
 }

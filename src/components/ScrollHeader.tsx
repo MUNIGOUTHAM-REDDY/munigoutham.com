@@ -96,7 +96,7 @@ export default function ScrollHeader({ alwaysVisible = false, showBackArrow = fa
       <AnimatePresence>
         {visible && (
           <motion.header
-            className="fixed top-0 left-0 right-0 z-50 bg-[#010101]/90 backdrop-blur-sm border-b border-white/5 lg:hidden"
+            className="fixed top-0 left-0 right-0 z-50 bg-void/90 backdrop-blur-sm border-b border-star/5 lg:hidden"
             initial={{ y: -80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -80, opacity: 0 }}
@@ -104,7 +104,7 @@ export default function ScrollHeader({ alwaysVisible = false, showBackArrow = fa
           >
             <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
               {showBackArrow ? (
-                <Link to="/" className="text-white/60 hover:text-white transition-colors text-xl">
+                <Link to="/" className="text-star/60 hover:text-star transition-colors text-xl">
                   &larr;
                 </Link>
               ) : (
@@ -116,7 +116,7 @@ export default function ScrollHeader({ alwaysVisible = false, showBackArrow = fa
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       transition={{ duration: 0.2 }}
-                      className="font-['Montserrat',sans-serif] font-bold text-white text-lg tracking-tight"
+                      className="font-sans text-[11px] uppercase tracking-[0.24em] text-star/70"
                     >
                       {activeSection}
                     </motion.span>
@@ -138,7 +138,7 @@ export default function ScrollHeader({ alwaysVisible = false, showBackArrow = fa
       <AnimatePresence>
         {menuOpen && visible && (
           <motion.div
-            className="fixed inset-0 z-40 bg-[#010101]/95 backdrop-blur-md flex flex-col items-center justify-center"
+            className="fixed inset-0 z-40 bg-void/95 backdrop-blur-md flex flex-col items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -149,7 +149,7 @@ export default function ScrollHeader({ alwaysVisible = false, showBackArrow = fa
                 <motion.button
                   key={item.sectionId}
                   onClick={() => handleNavClick(item.sectionId)}
-                  className="font-['Montserrat',sans-serif] font-medium text-3xl md:text-4xl text-white/80 hover:text-[#87C23B] transition-colors"
+                  className="font-display text-4xl font-light text-star/80 transition-colors duration-400 hover:text-lantern md:text-5xl"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
@@ -177,7 +177,7 @@ export default function ScrollHeader({ alwaysVisible = false, showBackArrow = fa
                   className="inline-flex items-center justify-center"
                 >
                   {socialIcons[social.platform] || (
-                    <span className="text-sm font-['Montserrat',sans-serif] text-white/40 hover:text-white transition-colors">
+                    <span className="text-sm font-sans text-star/40 hover:text-star transition-colors">
                       {social.platform}
                     </span>
                   )}

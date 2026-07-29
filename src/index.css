@@ -1,9 +1,76 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
+@import "./styles/world.css";
 
-@custom-variant dark (&:is(.dark *));
+/* ==========================================================================
+   THE NIGHT WORLD
+   --------------------------------------------------------------------------
+   Every colour below is sampled from the hero painting (src/assets/hero-bg).
+   The painting has one rule and the whole site obeys it:
+
+     There is a single warm light source — the lantern.
+     Green is not a brand colour. It is bounce light off the foliage.
+
+   So: LANTERN = attention, invitation, focus, "now".
+       LEAF    = life, activity, "this is alive".
+       NIGHT   = everything the light hasn't reached yet.
+
+   The sky is #06040A — violet-black, not neutral black. Keeping the page
+   base violet is what makes a section 4000px down still feel like it is
+   standing under the same sky as the hero.
+   ========================================================================== */
+
+@theme {
+  /* --- Night. The sky, sampled top-to-bottom. --- */
+  --color-void: #05040a; /* deepest sky — page base */
+  --color-night: #08070f; /* section base */
+  --color-raise: #0d0c16; /* a surface catching a little light */
+  --color-lift: #14121f; /* that surface, hovered */
+  --color-edge: #1c1a2a; /* border in shadow */
+
+  /* --- Foliage. Bounce light. --- */
+  --color-foliage-deep: #0e2d1f;
+  --color-foliage: #376230;
+  --color-leaf: #87c23b;
+  --color-leaf-lit: #a9d45c;
+
+  /* --- Lantern. The source. --- */
+  --color-lantern: #f2d999;
+  --color-lantern-core: #fef9cd;
+  --color-ember: #715a36;
+
+  --color-star: #e6edf6;
+
+  /* --- Aliases so existing utilities keep resolving --- */
+  --color-accent: var(--color-leaf);
+  --color-surface: var(--color-void);
+  --color-card: var(--color-raise);
+
+  /* --- Type. Two voices, no more. ---
+     Display serif carries the romance of the painting.
+     Geist carries the work: metrics, labels, body, UI. */
+  --font-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* --- Fluid display scale --- */
+  --text-display-sm: clamp(2rem, 1.4rem + 3vw, 3.25rem);
+  --text-display: clamp(2.75rem, 1.6rem + 5.2vw, 5.5rem);
+  --text-display-lg: clamp(3.25rem, 1.5rem + 8vw, 8rem);
+
+  /* --- Motion. One curve, so the whole site moves like one thing. --- */
+  --ease-lantern: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-marquee: marquee 38s linear infinite;
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+}
 
 html,
 body,
@@ -13,167 +80,50 @@ body,
   overflow-x: clip;
 }
 
+html {
+  scroll-behavior: smooth;
+  /* The sky is behind everything, always. */
+  background-color: var(--color-void);
+}
+
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-sans);
+  font-synthesis-weight: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #010101;
-  color: #ffffff;
+  background-color: transparent;
+  color: var(--color-star);
 }
 
-html.smooth-cursor-active,
-html.smooth-cursor-active body,
-html.smooth-cursor-active *,
-html.smooth-cursor-active *::before,
-html.smooth-cursor-active *::after {
-  cursor: none !important;
+/* Display serif needs optical sizing and tighter tracking at scale —
+   Cormorant is drawn for text and gets loose when set large. */
+.font-display,
+[class*="font-display"] {
+  font-optical-sizing: auto;
+  letter-spacing: -0.015em;
 }
 
-@theme inline {
-  --animate-meteor-effect: meteor 5s linear infinite;
-  --animate-marquee: marquee 30s linear infinite;
-
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  @keyframes meteor {
-    0% {
-      transform: rotate(305deg) translateX(0);
-      opacity: 1;
-    }
-    70% {
-      opacity: 1;
-    }
-    100% {
-      transform: rotate(305deg) translateX(-500px);
-      opacity: 0;
-    }
-  }
-
-  --color-accent: #87C23B;
-  --color-surface: #010101;
-  --color-card: #0d0b14;
-
-  --font-heading: var(--font-sans);
-  --font-sans: 'Geist Variable', sans-serif;
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-foreground: var(--foreground);
-  --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+::selection {
+  background: color-mix(in oklab, var(--color-leaf) 30%, transparent);
+  color: var(--color-lantern-core);
 }
 
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+/* Focus rings read as lantern light, not browser chrome. */
+:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--color-lantern) 70%, transparent);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+@media (prefers-reduced-motion: reduce) {
   html {
-    @apply font-sans;
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

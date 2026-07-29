@@ -2,29 +2,24 @@ import * as React from 'react'
 import { useState, useEffect } from 'react'
 import heroBg from '../assets/hero-bg.webp'
 import heroBgMobile from '../assets/hero-bg-mobile.webp'
-import iconHome from '../assets/icon-home.svg'
-import iconGallery from '../assets/icon-gallery.svg'
-import iconDesign from '../assets/icon-design.svg'
-import iconProfile from '../assets/icon-profile.svg'
-import iconGame from '../assets/icon-game.svg'
 import starHeader from '../assets/star-header.svg'
 import glow1 from '../assets/glow1.svg'
 import glow2 from '../assets/glow2.svg'
 
-import StarBorder from './StarBorder'
 import './Hero.css'
 
 function StarIcon({ className }: { className?: string }) {
   return (
     <svg
-      className={className}
+      className={`text-leaf ${className ?? ''}`}
       viewBox="0 0 22 22"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
     >
       <path
         d="M11.9445 11.9449V11.884L20.903 19.8064L12.7977 10.9698L20.7201 2.01139L11.9445 10.0557L11.8226 9.99477L20.5983 0.122197L10.8476 9.0197L1.03593 0.244081L9.93344 9.99477L9.8725 10.0557L1.09687 2.19422L9.08025 10.9089L1.09687 19.9892L9.93344 11.823L9.99438 11.9449L1.15782 21.8784L10.9694 12.859L20.9639 21.7565L11.9445 11.9449Z"
-        fill="#87C23B"
+        fill="currentColor"
       />
     </svg>
   )
@@ -81,7 +76,7 @@ function MailIcon({ className }: NavIconProps) {
   )
 }
 
-const DESKTOP_NAV: ReadonlyArray<{ id: string; label: string; Icon: (p: NavIconProps) => React.JSX.Element }> = [
+const NAV: ReadonlyArray<{ id: string; label: string; Icon: (p: NavIconProps) => React.JSX.Element }> = [
   { id: 'hero', label: 'Home', Icon: HomeIcon },
   { id: 'projects', label: 'Projects', Icon: DesignIcon },
   { id: 'about', label: 'About', Icon: ProfileIcon },
@@ -90,11 +85,12 @@ const DESKTOP_NAV: ReadonlyArray<{ id: string; label: string; Icon: (p: NavIconP
   { id: 'contact', label: 'Contact', Icon: MailIcon },
 ]
 
-function DesktopNav() {
+/** Which section is currently under the light. Shared by both navs. */
+function useActiveSection() {
   const [active, setActive] = useState<string | null>(null)
 
   useEffect(() => {
-    const els = DESKTOP_NAV
+    const els = NAV
       .map(n => document.getElementById(n.id))
       .filter((e): e is HTMLElement => Boolean(e))
     if (!els.length) return
@@ -120,11 +116,15 @@ function DesktopNav() {
     return () => obs.disconnect()
   }, [])
 
+  return active
+}
+
+function DesktopNav({ active }: { active: string | null }) {
   return (
     <nav className="hero__desknav">
       <div className="hero__desknav-blur" />
       <div className="hero__desknav-inner">
-        {DESKTOP_NAV.map(item => {
+        {NAV.map(item => {
           const isActive = active === item.id
           return (
             <a
@@ -142,6 +142,37 @@ function DesktopNav() {
   )
 }
 
+/* One icon set for both navs. The mobile bar used to ship five flat SVG
+   assets that couldn't be tinted; using the same inline icons as desktop
+   means the active tab can actually catch lantern light — and it picks up
+   Contact, which the old bar was missing. */
+function BottomNav({ active }: { active: string | null }) {
+  return (
+    <div className="hero__bottomnav">
+      <div className="hero__bottomnav-shell">
+        <div className="hero__bottomnav-inner">
+          {NAV.map(item => {
+            const isActive = active === item.id
+            return (
+              <button
+                key={item.id}
+                className={`hero__bottomnav-item${isActive ? ' hero__bottomnav-item--active' : ''}`}
+                aria-label={item.label}
+                aria-current={isActive ? 'true' : undefined}
+                onClick={() =>
+                  document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' })
+                }
+              >
+                <item.Icon className="hero__bottomnav-icon" />
+              </button>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function IndiaTime() {
   const [time, setTime] = useState(() =>
     new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false })
@@ -156,6 +187,8 @@ function IndiaTime() {
 }
 
 export default function Hero() {
+  const active = useActiveSection()
+
   return (
     <section id="hero" className="hero">
       <div className="hero__background">
@@ -191,12 +224,12 @@ export default function Hero() {
       </div>
 
       {/* Desktop nav */}
-      <DesktopNav />
+      <DesktopNav active={active} />
 
       <div className="hero__content">
         <h1 className="hero__name">
-          <span>MUNI</span>
-          <span>GOUTHAM</span>
+          <span>Muni</span>
+          <span>Goutham</span>
         </h1>
         <div className="hero__subtitle">
           <span>UI/UX Designer</span>
@@ -205,33 +238,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Bottom nav with StarBorder (mobile + tablet) */}
-      <div className="hero__bottomnav">
-        <StarBorder
-          as="div"
-          className="hero__bottomnav-starborder"
-          color="#87C23B"
-          speed="5s"
-        >
-          <div className="hero__bottomnav-inner">
-            <button className="hero__bottomnav-item hero__bottomnav-item--active" onClick={() => document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })}>
-              <img src={iconHome} alt="Home" />
-            </button>
-            <button className="hero__bottomnav-item" onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}>
-              <img src={iconDesign} alt="Projects" />
-            </button>
-            <button className="hero__bottomnav-item" onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}>
-              <img src={iconProfile} alt="About" />
-            </button>
-            <button className="hero__bottomnav-item" onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })}>
-              <img src={iconGallery} alt="Experience" />
-            </button>
-            <button className="hero__bottomnav-item" onClick={() => document.getElementById('playground')?.scrollIntoView({ behavior: 'smooth' })}>
-              <img src={iconGame} alt="Playground" />
-            </button>
-          </div>
-        </StarBorder>
-      </div>
+      {/* Bottom nav (mobile + tablet) */}
+      <BottomNav active={active} />
     </section>
   )
 }

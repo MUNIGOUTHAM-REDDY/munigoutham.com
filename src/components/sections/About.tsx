@@ -14,19 +14,21 @@ const tools = [
 function ToolMarquee() {
   const doubled = [...tools, ...tools]
   return (
-    <div className="relative overflow-hidden mt-12">
-      <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#010101] to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#010101] to-transparent z-10 pointer-events-none" />
-      <div className="flex animate-marquee w-max">
+    <div className="relative mt-16 overflow-hidden">
+      {/* Edge fades match the night base, not the old flat black. */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-void to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-void to-transparent" />
+      <div className="flex w-max animate-marquee">
         {doubled.map((tool, i) => (
-          <div key={i} className="flex flex-col items-center gap-3 px-8 md:px-10 shrink-0">
+          <div key={i} className="flex shrink-0 flex-col items-center gap-3 px-9 md:px-12">
             <img
-              src={`https://cdn.simpleicons.org/${tool.slug}/ffffff`}
-              alt={tool.name}
-              className="w-7 h-7 md:w-8 md:h-8 opacity-40"
+              src={`https://cdn.simpleicons.org/${tool.slug}/e6edf6`}
+              alt=""
+              aria-hidden="true"
+              className="h-6 w-6 opacity-35"
               loading="lazy"
             />
-            <span className="text-white/30 text-[10px] md:text-xs font-['Montserrat',sans-serif] whitespace-nowrap">
+            <span className="whitespace-nowrap font-sans text-[10px] uppercase tracking-[0.16em] text-star/30">
               {tool.name}
             </span>
           </div>
@@ -38,53 +40,74 @@ function ToolMarquee() {
 
 export default function About() {
   return (
-    <section id="about" className="px-6 md:px-12 py-20 md:py-28 max-w-6xl mx-auto">
-      <SectionHeader title="About Me" />
+    <section id="about" className="relative">
+      <div
+        aria-hidden
+        className="bloom"
+        style={{ top: '12%', right: '-4%', width: 560, height: 560 }}
+      />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr] gap-10 lg:gap-16 items-center">
-        {/* Text content */}
-        <motion.div
-          className="order-2 md:order-1"
-          initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <h3 className="font-['Montserrat',sans-serif] font-bold text-2xl md:text-3xl text-white mb-6">
-            {profile.headline}
-          </h3>
+      <div className="relative mx-auto w-full max-w-6xl px-6 py-24 md:px-12 md:py-32">
+        <SectionHeader title="About Me" eyebrow="Who You'd Be Hiring" />
 
-          {profile.bio.map((paragraph, i) => (
-            <p
-              key={i}
-              className="text-white/50 leading-relaxed mb-4 last:mb-0"
-            >
-              {paragraph}
-            </p>
-          ))}
-        </motion.div>
+        <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 lg:grid-cols-[1.35fr_1fr] lg:gap-20">
+          <motion.div
+            className="order-2 md:order-1"
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-70px' }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <h3 className="max-w-lg font-display text-[clamp(1.9rem,3.2vw,2.9rem)] font-light leading-[1.1] text-star">
+              {profile.headline}
+            </h3>
 
-        {/* Photo */}
-        <motion.div
-          className="relative aspect-square flex items-center justify-center max-w-sm mx-auto lg:max-w-none w-full order-1 md:order-2 overflow-hidden rounded-2xl"
-          initial={{ opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
-          whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <img 
-            src="/images/profile-photo.png" 
-            alt="Profile" 
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-          {/* Simple, soft edge blend using inset shadows that match the background */}
-          <div className="absolute inset-0 shadow-[inset_0_0_20px_10px_#010101] pointer-events-none" />
-          <div className="absolute inset-0 shadow-[inset_0_0_40px_20px_#010101] pointer-events-none" />
-        </motion.div>
+            <div className="mt-8 max-w-lg space-y-4">
+              {profile.bio.map((paragraph, i) => (
+                <p key={i} className="font-sans text-[15px] leading-relaxed text-star/55">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="relative order-1 mx-auto w-full max-w-sm md:order-2 lg:max-w-none"
+            initial={{ opacity: 0, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: '-70px' }}
+            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* Light behind the figure, so the portrait sits in the scene
+                rather than on it. */}
+            <div
+              aria-hidden
+              className="bloom"
+              style={{ inset: '-14%', width: 'auto', height: 'auto' }}
+            />
+            <div className="relative aspect-square">
+              <img
+                src="/images/profile-photo.webp"
+                alt="Muni Goutham"
+                loading="lazy"
+                className="h-full w-full object-cover"
+                style={{
+                  /* A real radial mask dissolves the photo into the night.
+                     The old version stacked two inset box-shadows keyed to
+                     flat black, which would leave a visible dark ring now
+                     that the page base is violet. */
+                  WebkitMaskImage:
+                    'radial-gradient(ellipse 68% 68% at 50% 45%, #000 42%, transparent 78%)',
+                  maskImage:
+                    'radial-gradient(ellipse 68% 68% at 50% 45%, #000 42%, transparent 78%)',
+                }}
+              />
+            </div>
+          </motion.div>
+        </div>
+
+        <ToolMarquee />
       </div>
-
-      <ToolMarquee />
     </section>
   )
 }
